@@ -1,0 +1,129 @@
+
+a:hover { 
+	color: gray;
+	}
+
+body { 
+	background-color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	}
+
+p.warning { 
+	color: red;
+	}
+	
+div.mm_login, a.menu {
+	width: 100%;
+	background-color: #378DCE;
+	color: white;
+	padding: 2px 0 2px 0;
+	margin-right: 5px;
+	text-align: right;
+	font-family: arial;
+	font-size: 11px;
+}
+
+div.mm_title {
+
+}
+
+h1.title, a.title {
+	text-align: center;
+	font-family: Georgia, Arial, sans-serif;
+	color: black;
+}
+
+div.mm_quote {
+	font-family: Times, serif;
+	font-style: italic;
+	font-size: 18px;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+div.movie_block {
+	width: 800px;
+	margin: 5px auto 5px auto;
+	border-top: 1px solid #91B4CF;
+}
+
+div.movie_posters {
+	width: 800px;
+	margin: 5px auto 5px auto;
+}
+
+a img { border:none; }
+
+h3.movie_name {
+	font: normal 21px Georgia, Arial Narrow, Arial, sans-serif;
+}
+
+div.movie_description {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	padding-bottom: 10px;
+}
+
+div.movie_attendees {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+div.movie_meta {
+	padding-bottom: 20px;
+}
+
+span.link { 
+	font-size: 0.6em; 
+	font-family: Arial, sans-serif;
+	margin-right: 8px; 
+	padding: 3px; 
+	text-decoration: bold;
+	}
+
+span.link#edit { 
+	background-color: #378DCE; 
+	color: white;
+	}
+
+span.link#imdb { 
+	background-color: #FFCC00; 
+	color: #040404;
+	}
+
+span.link#wikipedia { 
+	background-color: #E1E1E1; 
+	color: #040404;
+	}
+
+span.quote { 
+	cursor: default; 
+	float: right; 
+	margin-top: -14px;
+	}
+
+
+
+a { 
+	text-decoration: none;
+	}
+
+textarea.plain { 
+	font-family: Microsoft Sans Serif; 
+	font-size: 13px; 
+	width: 477px;
+	}
+
+td.label { 
+	text-align: right; 
+	font-size: 13px; 
+	font-weight: bold; 
+	vertical-align: top;
+	}
+
+td.label#left {
+	text-align: left;
+}

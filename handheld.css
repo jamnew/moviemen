@@ -1,0 +1,8 @@
+a { color: black;}
+a:hover { color: gray;}
+body { background-color: #FFFFFF; color: black; font-family: arial; font-size: 14px; font-weight: bold; }
+p.plain { font-weight: normal; }
+p.control { position: absolute; right: 10px; top: 5px; font-size: 10px; font-weight: normal;}
+a { text-decoration: none; }
+textarea.plain { font-family: Microsoft Sans Serif; font-size: 13px; width: 477px; }
+td.label { text-align: right; font-size: 13px; font-weight: bold; vertical-align: top; }
