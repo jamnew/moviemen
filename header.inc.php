@@ -61,7 +61,7 @@
 	//Pick random movies for quote and posters
 	$link = mysql_connect('localhost', 'mm', '') or die('Could not connect: '.mysql_error());
 	mysql_select_db('mm') or die('Could not select database');
-	$result = mysql_query('SELECT movie_id, movie_name, movie_quote FROM movies ORDER BY movie_id ASC') or die('Query failed: ' . mysql_error());
+	$result = mysql_query('SELECT movie_id, movie_name, movie_aka, movie_year, movie_quote FROM movies ORDER BY movie_id ASC') or die('Query failed: ' . mysql_error());
 	$aom = array();
 	$aon = array();
 	for ($i = 0; $i <= mysql_num_rows($result)-1; $i++) {
@@ -89,24 +89,14 @@
 	echo '<h1 class="title"><a href="index.php" class="title" title="'.mysql_num_rows($result).' movies and counting...">Movie Men</a></h1>';
 
 	//Display quote
-	echo '<div class="mm_quote" title="'.$aom[$rqi]["movie_name"].'">'.$aom[$rqi]["movie_quote"].'</div>';
+	echo '<div class="mm_quote" title="'.$aom[$rqi]["movie_name"]." (".$aom[$rqi]["movie_year"].")".'">'.$aom[$rqi]["movie_quote"].'</div>';
 
 	//Display posters
 	echo '<div class="movie_posters">';
 	echo '<table width=800><tr>';
-	echo '<td align=center><a href="posters/b'.$aom[0]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[0]["movie_id"].'.jpg" title="'.$aom[0]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[1]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[1]["movie_id"].'.jpg" title="'.$aom[1]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[2]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[2]["movie_id"].'.jpg" title="'.$aom[2]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[3]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[3]["movie_id"].'.jpg" title="'.$aom[3]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[4]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[4]["movie_id"].'.jpg" title="'.$aom[4]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[5]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[5]["movie_id"].'.jpg" title="'.$aom[5]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[6]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[6]["movie_id"].'.jpg" title="'.$aom[6]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[7]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[7]["movie_id"].'.jpg" title="'.$aom[7]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[8]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[8]["movie_id"].'.jpg" title="'.$aom[8]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[9]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[9]["movie_id"].'.jpg" title="'.$aom[9]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[10]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[10]["movie_id"].'.jpg" title="'.$aom[10]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[11]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[11]["movie_id"].'.jpg" title="'.$aom[11]["movie_name"].'"></a></td>';
-	echo '<td align=center><a href="posters/b'.$aom[12]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[12]["movie_id"].'.jpg" title="'.$aom[12]["movie_name"].'"></a></td>';
+	for ($i = 0; $i < count($aom); $i++){
+		echo '<td align=center><a href="posters/b'.$aom[$i]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[$i]["movie_id"].'.jpg" title="'.$aom[$i]["movie_name"]." (".$aom[$i]["movie_year"].")".'"></a></td>';
+	}
 	echo '</tr></table>';
 	echo '</div>';
 ?>

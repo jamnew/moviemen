@@ -18,16 +18,18 @@
 <?php
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		echo '<div class="movie_block">';
-
 		echo '<a name="' .$row["movie_id"]. '"></a>';
-
-		echo '<h3 class="movie_name">'.$row["movie_name"].'</h3>';
-		
+		if ($row["movie_aka"] == ""){
+			echo '<h3 class="movie_name">'.$row["movie_name"].' ('.$row["movie_year"].')</h3>';
+		}
+		else {
+			echo '<h3 class="movie_name">'.$row["movie_name"].' ('.$row["movie_year"].') aka '.$row["movie_aka"].'</h3>';
+		}
 		echo '<div class="movie_description">'.nl2br($row["movie_description"]).'</div>';
-
 		echo '<div class="movie_attendees">';
 		if ($row["movie_attendees"] != "") {
-			echo 'Watched on '.$row["movie_date_watched"].', chosen by '.$row["movie_chosen_by"].'. Special guests '.$row["movie_attendees"].'.'; }
+			echo 'Watched on '.$row["movie_date_watched"].', chosen by '.$row["movie_chosen_by"].'. Special guests '.$row["movie_attendees"].'.';
+		}
 		else {
 			echo 'Watched on '.$row["movie_date_watched"].', chosen by '.$row["movie_chosen_by"].'.';
 		}

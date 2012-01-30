@@ -27,6 +27,8 @@
 			
 			echo '<form name="input" action="edit.php" method="post">';
 			echo '<table><tr><td class="label">Name:</td><td><input type="text" name="movie_name" size="75" value="'.$row["movie_name"].'"></td></tr>';
+			echo '<tr><td class="label">aka:</td><td><input type="text" name="movie_aka" size="75" value="'.$row["movie_aka"].'"></td></tr>';
+			echo '<tr><td class="label">Year:</td><td><input type="text" name="movie_year" size="10" value="'.$row["movie_year"].'"></td></tr>';
 			echo '<tr><td class="label">Description:</td><td><textarea class="plain" name="movie_description" rows="5" cols="72"500>'.$row["movie_description"].'</textarea></td></tr>';
 			echo '<tr><td class="label">Quote:</td><td><input type="text" name="movie_quote" size="75" value="'.$row["movie_quote"].'"></td></tr>';
 			echo '<tr><td class="label">IMDb:</td><td><input type="text" name="movie_imdb" size="75" value="'.$row["movie_imdb"].'"></td></tr>';
@@ -79,20 +81,22 @@
 
 			// Combine and format date option values to mysql format
 			$movie_date_watched = date('Y\-m\-d', mktime(0,0,0,$_POST["month"],$_POST["day"],$_POST["year"]));
-			
+
 			// Escape all user input used in database queries to prevent SQL injection attacks
-			$movie_id = mysql_real_escape_string($_POST["movie_id"]);
-			$movie_name = mysql_real_escape_string($_POST["movie_name"]);
-			$movie_description = mysql_real_escape_string($_POST["movie_description"]);
-			$movie_imdb = mysql_real_escape_string($_POST["movie_imdb"]);
-			$movie_wikipedia = mysql_real_escape_string($_POST["movie_wikipedia"]);
-			$movie_date_watched = mysql_real_escape_string($movie_date_watched);
-			$movie_chosen_by = mysql_real_escape_string($_POST["movie_chosen_by"]);
-			$movie_attendees = mysql_real_escape_string($_POST["movie_attendees"]);
-			$movie_quote = mysql_real_escape_string($_POST["movie_quote"]);
+			$movie_id = trim(mysql_real_escape_string($_POST["movie_id"]));
+			$movie_name = trim(mysql_real_escape_string($_POST["movie_name"]));
+			$movie_aka = trim(mysql_real_escape_string($_POST["movie_aka"]));
+			$movie_year = trim(mysql_real_escape_string($_POST["movie_year"]));
+			$movie_description = trim(mysql_real_escape_string($_POST["movie_description"]));
+			$movie_imdb = trim(mysql_real_escape_string($_POST["movie_imdb"]));
+			$movie_wikipedia = trim(mysql_real_escape_string($_POST["movie_wikipedia"]));
+			$movie_date_watched = trim(mysql_real_escape_string($movie_date_watched));
+			$movie_chosen_by = trim(mysql_real_escape_string($_POST["movie_chosen_by"]));
+			$movie_attendees = trim(mysql_real_escape_string($_POST["movie_attendees"]));
+			$movie_quote = trim(mysql_real_escape_string($_POST["movie_quote"]));
 
 			// Commit edited record to database
-			$result = mysql_query("UPDATE movies SET movie_name='".$movie_name."',movie_description='".$movie_description."',movie_imdb='".$movie_imdb."',movie_wikipedia='".$movie_wikipedia."',movie_date_watched='".$movie_date_watched."',movie_chosen_by='".$movie_chosen_by."',movie_attendees='".$movie_attendees."',movie_quote='".$movie_quote."' WHERE movie_id='".$movie_id."'");
+			$result = mysql_query("UPDATE movies SET movie_name='".$movie_name."',movie_aka='".$movie_aka."',movie_year='".$movie_year."',movie_description='".$movie_description."',movie_imdb='".$movie_imdb."',movie_wikipedia='".$movie_wikipedia."',movie_date_watched='".$movie_date_watched."',movie_chosen_by='".$movie_chosen_by."',movie_attendees='".$movie_attendees."',movie_quote='".$movie_quote."' WHERE movie_id='".$movie_id."'");
 			
 			// Action on result of update
 			if($result) {
