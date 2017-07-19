@@ -29,15 +29,16 @@
 		case 1: /* When user sumbits credentials to be authenticated this case occurs */
 
 			// Connecting to & selecting database
-			$link = mysql_connect('localhost', 'mm', '') or die('Could not connect: '.mysql_error());
-			mysql_select_db('mm') or die('Could not select database');
+			$link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link));
+                        mysqli_set_charset('utf8');
+			mysqli_select_db($link, 'mm') or die('Could not select database');
 			
-			$user = mysql_real_escape_string($_POST["user"]); /* Escape special chars in user input */
+			$user = mysqli_real_escape_string($link, $_POST["user"]); /* Escape special chars in user input */
 			$pass = md5($_POST["pass"]); /* Hash password supplied by user */
 						
-			$result = mysql_query('SELECT user_name FROM users WHERE user_name=\''.$user.'\' AND user_pass=\''.$pass.'\'') or die('Query failed: ' . mysql_error()); /* Check if credentials supplied match */
+			$result = mysqli_query($link, 'SELECT user_name FROM users WHERE user_name=\''.$user.'\' AND user_pass=\''.$pass.'\'') or die('Query failed: ' . mysqli_error($link)); /* Check if credentials supplied match */
 
-			if (mysql_num_rows($result) > 0) { /* If credentials match enter this block */
+			if (mysqli_num_rows($result) > 0) { /* If credentials match enter this block */
 				
 				if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
 				$_SESSION['authorized'] = TRUE; /* Set user to authorized. */

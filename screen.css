@@ -105,7 +105,25 @@ span.quote {
 	margin-top: -14px;
 	}
 
+span#quoteicon {
+	background-color: #E5FAE3;
+	color: blue;
+	font-size: 0.6em; 
+	font-family: Arial, sans-serif;
+	margin-right: 8px; 
+	padding: 3px; 
+	text-decoration: bold;
+}
 
+span#postericon {
+	background-color: #FAE3E5;
+	color: blue;
+	font-size: 0.6em; 
+	font-family: Arial, sans-serif;
+	margin-right: 8px; 
+	padding: 3px; 
+	text-decoration: bold;
+}
 
 a { 
 	text-decoration: none;
