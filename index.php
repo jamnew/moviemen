@@ -11,13 +11,16 @@
 
   include 'header.inc.php'; /* Include header.inc.php */
 
-  // Display all records from database in descending order by date  
-  $result = mysqli_query($link, 'SELECT * FROM movies ORDER BY movie_date_watched DESC, movie_id DESC') or die('Query failed: ' . mysqli_error($link));
+  // Select all movies in descending order by date watched
+  $result = db_select("SELECT * from `movies` ORDER BY `movie_date_watched` DESC, `movie_id` DESC");
+  if($result === false) {
+    die('Query Error: '.db_error());
+  }
 ?>
 
 <!--Repeating movie block-->
 <?php
-  while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+  foreach($result as $row){
     echo '<div class="movie_block">';
     echo '<a name="' .$row["movie_id"]. '"></a>';
     if ($row["movie_aka"] == ""){

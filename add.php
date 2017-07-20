@@ -63,13 +63,11 @@
       echo '</select></td></tr>';
       echo '<tr><td class="label">Chosen by:</td><td><input type="text" name="movie_chosen_by" size="10"></td></tr>';
       echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
-      //echo '<input type="hidden" name="movie_id" value="'.$movie_id.'">';
       echo '<input type="hidden" name="insert" value="1"></td></tr></table></form>';
 
       echo '<div id="images" style="margin-left: 85px"></div>';
 
       include 'footer.inc.php'; /* Include footer.inc.php */
-
       break;
 
     case 1: /* When user sumbits addition to be written to database this case occurs */
@@ -77,47 +75,74 @@
       // Combine and format date option values to mysql format
       $movie_date_watched = date('Y\-m\-d', mktime(0,0,0,$_POST["month"],$_POST["day"],$_POST["year"]));
 
-      // Escape all user input used in database queries to prevent SQL injection attacks
-      $movie_name = trim(mysqli_real_escape_string($link, $_POST["movie_name"]));
-      $movie_aka = trim(mysqli_real_escape_string($link, $_POST["movie_aka"]));
-      $movie_year = trim(mysqli_real_escape_string($link, $_POST["movie_year"]));
-      $movie_description = trim(mysqli_real_escape_string($link, $_POST["movie_description"]));
-      $movie_imdb = trim(mysqli_real_escape_string($link, $_POST["movie_imdb"]));
-      $movie_wikipedia = trim(mysqli_real_escape_string($link, $_POST["movie_wikipedia"]));
-      $movie_poster_image = trim(mysqli_real_escape_string($link, $_POST["movie_poster_image"]));
-      $movie_date_watched = trim(mysqli_real_escape_string($link, $movie_date_watched));
-      $movie_chosen_by = trim(mysqli_real_escape_string($link, $_POST["movie_chosen_by"]));
-      $movie_attendees = trim(mysqli_real_escape_string($link, $_POST["movie_attendees"]));
-      $movie_quote = trim(mysqli_real_escape_string($link, $_POST["movie_quote"]));
+      // Clean up user input
+      $movie_name = db_quote(trim($_POST["movie_name"]));
+      $movie_aka = db_quote(trim($_POST["movie_aka"]));
+      $movie_year = db_quote(trim($_POST["movie_year"]));
+      $movie_description = db_quote(trim($_POST["movie_description"]));
+      $movie_imdb = db_quote(trim($_POST["movie_imdb"]));
+      $movie_wikipedia = db_quote(trim($_POST["movie_wikipedia"]));
+      $movie_poster_image = db_quote(trim($_POST["movie_poster_image"]));
+      $movie_date_watched = db_quote(trim($movie_date_watched));
+      $movie_chosen_by = db_quote(trim($_POST["movie_chosen_by"]));
+      $movie_attendees = db_quote(trim($_POST["movie_attendees"]));
+      $movie_quote = db_quote(trim($_POST["movie_quote"]));
 
-      // Commit edited record to database
-      $result = mysqli_query($link, "INSERT INTO movies VALUES (NULL,'$movie_name','$movie_aka','$movie_year','$movie_description','$movie_imdb','$movie_wikipedia','$movie_poster_image','$movie_date_watched','$movie_chosen_by','$movie_attendees','$movie_quote')");
+      // Insert single movie
+      $query  = "INSERT INTO `movies` ";
+      $query .= "(";
+      $query .= "`movie_name`, ";
+      $query .= "`movie_aka`, ";
+      $query .= "`movie_year`, ";
+      $query .= "`movie_description`, ";
+      $query .= "`movie_imdb`, ";
+      $query .= "`movie_wikipedia`, ";
+      $query .= "`movie_poster_image`, ";
+      $query .= "`movie_date_watched`, ";
+      $query .= "`movie_chosen_by`, ";
+      $query .= "`movie_attendees`, ";
+      $query .= "`movie_quote`";
+      $query .= ") ";
+      $query .= "VALUES ";
+      $query .= "(";
+      $query .= "'$movie_name', ";
+      $query .= "'$movie_aka', ";
+      $query .= "'$movie_year', ";
+      $query .= "'$movie_description', ";
+      $query .= "'$movie_imdb', ";
+      $query .= "'$movie_wikipedia', ";
+      $query .= "'$movie_poster_image', ";
+      $query .= "'$movie_date_watched', ";
+      $query .= "'$movie_chosen_by', ";
+      $query .= "'$movie_attendees', ";
+      $query .= "'$movie_quote' ";
+      $query .= ")";
+
+      $result = db_query($query);
+      if($result === false) {
+        die('Query Error: '.db_error());
+      }
+
+      // Get auto_incremented id of last insert (per connection)
       $movie_id = mysqli_insert_id($link);
 
-      // Action on result of update
-      if($result) {
-        if(!empty($movie_poster_image)){
-          $url = $movie_poster_image;
-          $file = explode('/',$url);
-          $file = $file[count($file)-1];
-          $img = '/tmp/'.$file;
-          file_put_contents($img, file_get_contents($url));
-          exec("convert /tmp/".$file." /tmp/b".$movie_id.".jpg");
-          exec("convert /tmp/".$file." -resize x75 /tmp/".$movie_id.".jpg");
-          copy("/tmp/b".$movie_id.".jpg", "posters/b".$movie_id.".jpg");
-          copy("/tmp/".$movie_id.".jpg", "posters/".$movie_id.".jpg");
-          mysqli_query($link, "UPDATE movies SET movie_poster_image = NULL WHERE movie_id='".$movie_id."'");
-        }
+      // Retrieve poster image file if required
+      if(!empty($movie_poster_image)){
+        $url = $movie_poster_image;
+        $file = explode('/',$url);
+        $file = $file[count($file)-1];
+        $img = '/tmp/'.$file;
+        file_put_contents($img, file_get_contents($url));
+        exec("convert /tmp/".$file." /tmp/b".$movie_id.".jpg");
+        exec("convert /tmp/".$file." -resize x75 /tmp/".$movie_id.".jpg");
+        copy("/tmp/b".$movie_id.".jpg", "posters/b".$movie_id.".jpg");
+        copy("/tmp/".$movie_id.".jpg", "posters/".$movie_id.".jpg");
+        db_query("UPDATE `movies` SET `movie_poster_image` = NULL WHERE `movie_id` = $movie_id");
+      }
 
-        mysqli_close($link); /* Closing connection */
-        header("Location: index.php"); /* Redirect browser */
-      }
-      else {
-        echo '<hr>';
-        echo 'Query failed: '.mysqli_error($link).'<br>'; /* Report error message */
-        mysqli_close($link);  /* Closing connection */
-        include 'footer.inc.php'; /* Include footer.inc.php */
-      }
+      mysqli_free_result($result); /* Free result set */
+      mysqli_close($link); /* Closing connection */
+      header("Location: index.php"); /* Redirect browser */
       break;
     }
   }

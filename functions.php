@@ -28,7 +28,7 @@
     $connection = db_connect();
 
     // Query the database
-    $result = mysqli_query($connection,$query);
+    $result = mysqli_query($connection, $query);
 
     return $result;
   }
@@ -37,5 +37,28 @@
     $connection = db_connect();
 
     return mysqli_error($connection);
+  }
+
+  function db_select($query) {
+    $rows = array();
+    $result = db_query($query);
+
+    // If query failed, return `false`
+    if($result === false) {
+      return false;
+    }
+
+    // If query was successful, retrieve all the rows into an array
+    while ($row = mysqli_fetch_assoc($result)) {
+      $rows[] = $row;
+    }
+
+    return $rows;
+  }
+
+  function db_quote($value) {
+    $connection = db_connect();
+
+    return mysqli_real_escape_string($connection, $value);
   }
 ?>
