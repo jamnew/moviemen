@@ -4,13 +4,13 @@
   $_SESSION['current_page']='index.php'; /* Set the page to return to if login link is clicked */
   $_SESSION['login_page']=FALSE; /* Is this login.php? */
 
-  include 'header.inc.php'; /* Include header.inc.php */
+  include 'functions.php';
 
   // Connecting to & selecting database
-  $link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link));
-  mysqli_set_charset('utf8');
-  mysqli_select_db($link, 'mm') or die('Could not select database');
-  
+  $link = db_connect() or die('Could not connect: '.mysqli_error($link));
+
+  include 'header.inc.php'; /* Include header.inc.php */
+
   // Display all records from database in descending order by date  
   $result = mysqli_query($link, 'SELECT * FROM movies ORDER BY movie_date_watched DESC, movie_id DESC') or die('Query failed: ' . mysqli_error($link));
 ?>

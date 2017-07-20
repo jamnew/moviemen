@@ -2,7 +2,14 @@
 	ini_set('session.use_only_cookies', true); /* Sets PHP configuration directive that only cookies are to be used for session reference passing */
 	if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
 	$_SESSION['login_page']=TRUE; /* Is this login.php? */
-	
+
+	include 'functions.php';
+
+	// Connecting to & selecting database
+	$link = db_connect() or die('Could not connect: '.mysqli_error($link));
+
+	include 'header.inc.php'; /* Include header.inc.php */
+
 	switch ($_REQUEST["action"]) {
 
 		case 0: /* When user clicks login from any page this case will occur */
@@ -28,11 +35,6 @@
 
 		case 1: /* When user sumbits credentials to be authenticated this case occurs */
 
-			// Connecting to & selecting database
-			$link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link));
-                        mysqli_set_charset('utf8');
-			mysqli_select_db($link, 'mm') or die('Could not select database');
-			
 			$user = mysqli_real_escape_string($link, $_POST["user"]); /* Escape special chars in user input */
 			$pass = md5($_POST["pass"]); /* Hash password supplied by user */
 						

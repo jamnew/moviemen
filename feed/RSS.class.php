@@ -4,10 +4,13 @@ class RSS
 {
   public function RSS()
   {
-    DEFINE('DB_USER', 'mm');
-    DEFINE('DB_PASSWORD', '%PASSWORD%');
+    // Load configuration as an array. Use the actual location of your configuration file
+    $config = parse_ini_file('../../config.ini');
+
+    DEFINE('DB_USER', $config['username']);
+    DEFINE('DB_PASSWORD', $config['password']);
     DEFINE('DB_HOST', 'localhost');
-    DEFINE('DB_NAME', 'mm');
+    DEFINE('DB_NAME', $config['dbname']);
   }
 
   public function GetFeed()

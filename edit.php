@@ -4,18 +4,18 @@
   $_SESSION['current_page']='edit.php'; /* Set the page to return to if login link is clicked */
   $_SESSION['login_page']=FALSE; /* Is this login.php? */
 
-  if ($_SESSION['authorized'] == TRUE) { /* Check if user is authorized */
+  include 'functions.php';
 
-    // Connecting to & selecting database
-    $link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link));
-    mysqli_set_charset('utf8');
-    mysqli_select_db($link, 'mm') or die('Could not select database');
+  // Connecting to & selecting database
+  $link = db_connect() or die('Could not connect: '.mysqli_error($link));
+
+  include 'header.inc.php'; /* Include header.inc.php */
+
+  if ($_SESSION['authorized'] == TRUE) { /* Check if user is authorized */
 
     switch ($_REQUEST["write"]) {
 
     case 0: /* When user clicks edit movie from index.php this case will occur */
-    
-      include 'header.inc.php'; /* Include header.inc.php */
     
       // Escape all GET & POST data used in database queries to prevent SQL injection attacks
       $movie_id = mysqli_real_escape_string($link, $_REQUEST["movie_id"]);
@@ -122,7 +122,6 @@
         header("Location: index.php"); /* Redirect browser */
       }
       else {
-        include 'header.inc.php'; /* Include header.inc.php */
         echo '<hr>';
         echo 'Query failed: '.mysqli_error($link).'<br>'; /* Report error message */
         mysqli_close($link);  /* Closing connection */
@@ -132,10 +131,6 @@
     }
   }
   else if (isset($_COOKIE['USER']) && isset($_COOKIE['PASS'])) { /* If user has entered credentials less than one day ago and automatically login */
-    $link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link)); /* Connect to mysql */
-    mysqli_set_charset('utf8');
-    mysqli_select_db($link, 'mm') or die('Could not select database'); /* Select database */
-    
     $user = mysqli_real_escape_string($link, $_COOKIE["USER"]); /* Add slashes to escape chars in case the user has hacked the cookie */
     $pass = mysqli_real_escape_string($link, $_COOKIE["PASS"]); /* Add slashes to escape chars in case the user has hacked the cookie */
           

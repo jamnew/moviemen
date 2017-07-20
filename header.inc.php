@@ -44,10 +44,6 @@
       echo '| <a href="login.php?action=2" class="menu"><b>Logout</b></a>';
     }
     else if (isset($_COOKIE['USER']) && isset($_COOKIE['PASS'])) { /* If user entered credentials less than one day ago automatically login */
-      $link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link)); /* Connect to mysql */
-      mysqli_set_charset('utf8');
-      mysqli_select_db($link, 'mm') or die('Could not select database'); /* Select database */
-      
       $user = mysqli_real_escape_string($link, $_COOKIE["USER"]); /* Add slashes to escape chars in case the user has hacked the cookie */
       $pass = mysqli_real_escape_string($link, $_COOKIE["PASS"]); /* Add slashes to escape chars in case the user has hacked the cookie */
             
@@ -81,9 +77,6 @@
 <div id="mm_title">
 <?php
   //Pick random movies for quote and posters
-  $link = mysqli_connect('localhost', 'mm', '%PASSWORD%') or die('Could not connect: '.mysqli_error($link));
-  mysqli_set_charset('utf8');
-  mysqli_select_db($link, 'mm') or die('Could not select database');
   $result = mysqli_query($link, 'SELECT movie_id, movie_name, movie_aka, movie_year, movie_quote FROM movies ORDER BY movie_id ASC') or die('Query failed: ' . mysqli_error($link));
 
   $aom = array();
