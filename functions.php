@@ -17,8 +17,7 @@
 
     // If connection was not successful, handle the error
     if($connection === false) {
-      // Handle error - notify administrator, log to a file, show an error screen, etc.
-      return mysqli_connect_error();
+      die('Connect Error: '.mysqli_connect_error());
     }
 
     return $connection;
@@ -36,6 +35,7 @@
 
   function db_error() {
     $connection = db_connect();
+
     return mysqli_error($connection);
   }
 ?>

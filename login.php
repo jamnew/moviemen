@@ -6,7 +6,7 @@
 	include 'functions.php';
 
 	// Connecting to & selecting database
-	$link = db_connect() or die('Could not connect: '.db_error());
+	$link = db_connect();
 
 	include 'header.inc.php'; /* Include header.inc.php */
 
