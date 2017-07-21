@@ -1,6 +1,5 @@
 <?php
 	if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
-	$_SESSION['login_page']=TRUE; /* Is this login.php? */
 
 	include 'functions.php';
 
@@ -12,8 +11,6 @@
 	switch ($_REQUEST["action"]) {
 
 		case 0: /* When user clicks login from any page this case will occur */
-
-			include 'header.inc.php'; /* Include header.inc.php */
 
 			echo '<hr>';
 
@@ -43,8 +40,8 @@
 
 				if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
 				$_SESSION['authorized'] = TRUE; /* Set user to authorized. */
-				setcookie('USER', $user, time()+86400); /* Set user to cookie (1 day) to be used to re-login after a session deactivates */
-				setcookie('PASS', $pass, time()+86400); /* Set pass to cookie (1 day) to be used to re-login after a session deactivates */
+				$_SESSION['USER'] = $user;
+				$_SESSION['PASS'] = $pass;
 				if (isset($_SESSION['current_page'])) {
 					if ($_SESSION['current_page'] == 'edit.php') { /* Check if we came from edit.php */
 						if (isset($_REQUEST['movie_id'])) { /* Check if we came from edit link */
@@ -90,10 +87,8 @@
 
 		case 2: /* When a user clicks logout from any page this case will occur */
 
-			if (session_id() == "") session_start(); /* Checks for active session and if not, session is started or resumed. */
-			$_SESSION['authorized'] = FALSE; /* Set user to unauthorized. */
-			setcookie('USER', $user, time()-3600); /* Delete user cookie by setting expiration date one hour in the past */
-			setcookie('PASS', $pass, time()-3600); /* Delete pass cookie by setting expiration date one hour in the past */
+			session_destroy();
+
 			header('Location: index.php'); /* No matter where user clicks logout they will always return to index.php*/
 
 			break;
