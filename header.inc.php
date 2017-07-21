@@ -39,7 +39,6 @@
       echo '<a href="feed/"><img style = "vertical-align:text-top;" src = "feed/small_rss.png" /></a>';
       echo ' | Logged in as '.$_COOKIE['USER'];
       echo ' | <a href="add.php" class="menu"><b>Add Movie</b></a>';
-      echo '| <a href="edit_quotes.php" class="menu"><b>Edit Quotes</b></a>';
       echo '| <a href="login.php?action=2" class="menu"><b>Logout</b></a>';
     }
     else if (isset($_COOKIE['USER']) && isset($_COOKIE['PASS'])) { /* If user entered credentials less than one day ago automatically login */
@@ -54,7 +53,6 @@
           echo '<a href="feed/"><img style = "vertical-align:text-top;" src = "feed/small_rss.png" /></a>';
           echo ' | Logged in as '.$_COOKIE['USER'];
           echo ' | <a href="add.php" class="menu"><b>Add Movie</b></a>';
-          echo '| <a href="edit_quotes.php" class="menu"><b>Edit Quotes</b></a>';
           echo '| <a href="login.php?action=2" class="menu"><b>Logout</b></a>';
       }
       else { /* If credentials do not match display login link */
