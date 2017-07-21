@@ -1,18 +1,18 @@
 
-a:hover { 
+a:hover {
 	color: gray;
 	}
 
-body { 
+body {
 	background-color: #FFFFFF;
 	margin: 0;
 	padding: 0;
 	}
 
-p.warning { 
+p.warning {
 	color: red;
 	}
-	
+
 div.mm_login, a.menu {
 	width: 100%;
 	background-color: #378DCE;
@@ -48,6 +48,13 @@ div.movie_block {
 	border-top: 1px solid #91B4CF;
 }
 
+div.form_block {
+	width: 800px;
+	margin: 5px auto 5px auto;
+	padding: 7px 0 0 0;
+	border-top: 1px solid #91B4CF;
+}
+
 div.movie_posters {
 	width: 800px;
 	margin: 5px auto 5px auto;
@@ -56,6 +63,10 @@ div.movie_posters {
 a img { border:none; }
 
 h3.movie_name {
+	font: normal 21px Georgia, Arial Narrow, Arial, sans-serif;
+}
+
+h3.page_name {
 	font: normal 21px Georgia, Arial Narrow, Arial, sans-serif;
 }
 
@@ -76,71 +87,94 @@ div.movie_meta {
 	padding-bottom: 20px;
 }
 
-span.link { 
-	font-size: 0.6em; 
-	font-family: Arial, sans-serif;
-	margin-right: 8px; 
-	padding: 3px; 
-	text-decoration: bold;
-	}
-
-span.link#edit { 
-	background-color: #378DCE; 
-	color: white;
-	}
-
-span.link#imdb { 
-	background-color: #FFCC00; 
-	color: #040404;
-	}
-
-span.link#wikipedia { 
-	background-color: #E1E1E1; 
-	color: #040404;
-	}
-
-span.quote { 
-	cursor: default; 
-	float: right; 
+span.quote {
+	cursor: default;
+	float: right;
 	margin-top: -14px;
 	}
 
-span#quoteicon {
-	background-color: #E5FAE3;
-	color: blue;
-	font-size: 0.6em; 
-	font-family: Arial, sans-serif;
-	margin-right: 8px; 
-	padding: 3px; 
-	text-decoration: bold;
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+
+a:link#edit, a:visited#edit {
+    background-color: #378DCE;
+    color: white;
+		margin-right: 8px;
+		padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+		font-size: 0.6em;
+		font-family: Arial, sans-serif;
 }
 
-span#postericon {
-	background-color: #FAE3E5;
-	color: blue;
-	font-size: 0.6em; 
-	font-family: Arial, sans-serif;
-	margin-right: 8px; 
-	padding: 3px; 
-	text-decoration: bold;
+a:link#imdb, a:visited#imdb {
+    background-color: #FFCC00;
+    color: #040404;
+		margin-right: 8px;
+		padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+		font-size: 0.6em;
+		font-family: Arial, sans-serif;
 }
 
-a { 
-	text-decoration: none;
-	}
+a:link#wikipedia, a:visited#wikipedia {
+    background-color: #E1E1E1;
+    color: blue;
+		margin-right: 8px;
+		padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+		font-size: 0.6em;
+		font-family: Arial, sans-serif;
+}
 
-textarea.plain { 
-	font-family: Microsoft Sans Serif; 
-	font-size: 13px; 
-	width: 477px;
-	}
+a:link#quote, a:visited#quote {
+    background-color: #E5FAE3;
+    color: blue;
+		margin-right: 8px;
+		padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+		font-size: 0.6em;
+		font-family: Arial, sans-serif;
+}
 
-td.label { 
-	text-align: right; 
-	font-size: 13px; 
-	font-weight: bold; 
-	vertical-align: top;
-	}
+a:link#poster, a:visited#poster {
+    background-color: #FAE3E5;
+    color: blue;
+		margin-right: 8px;
+		padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+		font-size: 0.6em;
+		font-family: Arial, sans-serif;
+}
+
+input.plain {
+	width: 634px;
+}
+
+textarea.plain {
+	font-family: Microsoft Sans Serif;
+	font-size: 13px;
+	padding-left: 1px;
+	width: 634px;
+}
+
+td.label {
+	text-align: right;
+	font-size: 0.8em;
+	font-family: Arial, sans-serif;
+	color: grey;
+}
 
 td.label#left {
 	text-align: left;

@@ -38,15 +38,15 @@
     echo '</div>'; // end movie_attendees
 
     echo '<div class="movie_meta">';
-    echo '<span class="link" id="edit"><a href="edit.php?movie_id='.$row["movie_id"].'">Edit</a></span>';
+    echo '<a id="edit" href="edit.php?movie_id='.$row["movie_id"].'">Edit</a>';
     if ($row["movie_imdb"] != "") {
-      echo '<span class="link" id="imdb"><a href="'.$row["movie_imdb"].'">IMDb</a></span>'; }
+      echo '<a id="imdb" href="'.$row["movie_imdb"].'">IMDb</a>'; }
     if ($row["movie_wikipedia"] != "") {
-      echo '<span class="link" id="wikipedia"><a href="'.$row["movie_wikipedia"].'">Wikipedia</a></span>'; }
+      echo '<a id="wikipedia" href="'.$row["movie_wikipedia"].'">Wikipedia</a>'; }
     if ($row["movie_quote"] != "") {
-      echo '<span id="quoteicon" title="'.$row["movie_quote"].'">Quote</span>'; }
+      echo '<a id="quote" href="#" title="'.$row["movie_quote"].'">Quote</a>'; }
     if (file_exists('posters/'.$row["movie_id"].'.jpg')) {
-      echo '<span id="postericon"><a href="posters/b'.$row["movie_id"].'.jpg" target="_blank">Poster</a></span>'; }
+      echo '<a id="poster" href="posters/b'.$row["movie_id"].'.jpg" target="_blank">Poster</a>'; }
     echo '</div>'; // end movie_meta
 
     echo '</div>'; // end movie_block

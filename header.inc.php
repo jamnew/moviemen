@@ -35,14 +35,14 @@
   echo '<div class="mm_login">';
 
   if ($_SESSION['authorized'] == TRUE) { /* Check if user has been recently authorized */
-    echo '<a href="feed/"><img style = "vertical-align:text-top;" src = "feed/small_rss.png" /></a>';
-    echo ' | Logged in as '.$_SESSION['USER'];
-    echo ' | <a href="add.php" class="menu"><b>Add Movie</b></a>';
+    echo 'Logged in as '.$_SESSION['USER'];
+    echo ' | <a href="feed/" class="menu"><b>Feed</b></a>';
+    echo '| <a href="add.php" class="menu"><b>Add Movie</b></a>';
     echo '| <a href="login.php?action=2" class="menu"><b>Logout</b></a>';
   }
   else { /* No session so display login link */
-    echo '<a href="feed/"><img style = "vertical-align:text-top;" src = "feed/small_rss.png" /></a>';
-    echo ' | <a href="login.php?action=0" class="menu"><b>Login</b></a>';
+    echo '<a href="feed/" class="menu"><b>Feed</b></a>';
+    echo '| <a href="login.php?action=0" class="menu"><b>Login</b></a>';
   }
 
   echo '</div>';

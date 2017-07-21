@@ -12,9 +12,9 @@
 
 		case 0: /* When user clicks login from any page this case will occur */
 
-			echo '<hr>';
-
 			// Login form
+      echo '<div class="form_block">';
+			echo '<h3 class="page_name">Login</h3>';
 			echo '<form name="input" action="login.php" method="post">';
 			echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"></td></tr>';
 			echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"></td></tr>';
@@ -24,6 +24,7 @@
 				echo '<input type="hidden" name="movie_id" value="'.$_REQUEST['movie_id'].'">';
 			}
 			echo '</td></tr></table></form>';
+			echo '</div>';
 
 			include 'footer.inc.php'; /* Include footer.inc.php */
 

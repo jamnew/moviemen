@@ -29,18 +29,18 @@
       if(!empty($result)){
         $row = $result[0];
 
-        echo '<hr>';
-
+        echo '<div class="form_block">';
+        echo '<h3 class="page_name">Edit Movie</h3>';
         echo '<form name="input" action="edit.php" method="post">';
-        echo '<table><tr><td class="label">Name:</td><td><input type="text" name="movie_name" size="75" value="'.$row["movie_name"].'" id="movie_name"></td></tr>';
-        echo '<tr><td class="label">aka:</td><td><input type="text" name="movie_aka" size="75" value="'.$row["movie_aka"].'"></td></tr>';
-        echo '<tr><td class="label">Year:</td><td><input type="text" name="movie_year" size="10" value="'.$row["movie_year"].'"></td></tr>';
+        echo '<table><tr><td class="label">Name:</td><td><input type="text" class="plain" name="movie_name" size="75" value="'.$row["movie_name"].'" id="movie_name"></td></tr>';
+        echo '<tr><td class="label">aka:</td><td><input type="text" class="plain" name="movie_aka" size="75" value="'.$row["movie_aka"].'"></td></tr>';
+        echo '<tr><td class="label">Year:</td><td><input type="text" class="plain" name="movie_year" size="10" value="'.$row["movie_year"].'"></td></tr>';
         echo '<tr><td class="label">Description:</td><td><textarea class="plain" name="movie_description" rows="5" cols="72"500>'.$row["movie_description"].'</textarea></td></tr>';
-        echo '<tr><td class="label">Quote:</td><td><input type="text" name="movie_quote" size="75" value="'.$row["movie_quote"].'"></td></tr>';
-        echo '<tr><td class="label">IMDb:</td><td><input type="text" name="movie_imdb" size="75" value="'.$row["movie_imdb"].'"></td></tr>';
-        echo '<tr><td class="label">Wikipedia:</td><td><input type="text" name="movie_wikipedia" size="75" value="'.$row["movie_wikipedia"].'"></td></tr>';
-        echo '<tr><td class="label">Poster image:</td><td><input type="text" name="movie_poster_image" size="75" id="movie_poster_image" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="refresh_16.png" title="Load poster images" /></td></tr>';
-        echo '<tr><td class="label">Special guests:</td><td><input type="text" name="movie_attendees" size="75" value="'.$row["movie_attendees"].'"></td></tr>';
+        echo '<tr><td class="label">Quote:</td><td><input type="text" class="plain" name="movie_quote" size="75" value="'.$row["movie_quote"].'"></td></tr>';
+        echo '<tr><td class="label">IMDb:</td><td><input type="text" class="plain" name="movie_imdb" size="75" value="'.$row["movie_imdb"].'"></td></tr>';
+        echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" name="movie_wikipedia" size="75" value="'.$row["movie_wikipedia"].'"></td></tr>';
+        echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" name="movie_poster_image" size="75" id="movie_poster_image" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="refresh_16.png" title="Load poster images" /></td></tr>';
+        echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" name="movie_attendees" size="75" value="'.$row["movie_attendees"].'"></td></tr>';
         echo '<tr><td class="label">Date watched:</td>';
         echo '<td><select name="day">';
           for ($i = 1; $i <= 31; $i++) {
@@ -73,17 +73,18 @@
           }
           }
         echo '</select></td></tr>';
-        echo '<tr><td class="label">Chosen by:</td><td><input type="text" name="movie_chosen_by" size="10" value="'.$row["movie_chosen_by"].'"></td></tr>';
+        echo '<tr><td class="label">Chosen by:</td><td><input type="text" class="plain" name="movie_chosen_by" size="10" value="'.$row["movie_chosen_by"].'"></td></tr>';
         echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
         echo '<input type="hidden" name="movie_id" value="'.$movie_id.'">';
         echo '<input type="hidden" name="write" value="1"></td></tr></table></form>';
 
         echo '<div id="images" style="margin-left: 85px"></div>';
+        echo '</div>';
       }
       else{
-        echo '<hr>';
-
+        echo '<div class="form_block">';
         echo "<div>No movie found.</div>";
+        echo '</div>';
       }
 
       mysqli_free_result($result); /* Free result set */

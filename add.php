@@ -15,18 +15,18 @@
 
     case 0: /* When user clicks add movie from index.php this case will occur */
 
-      echo '<hr>';
-
+      echo '<div class="form_block">';
+      echo '<h3 class="page_name">Add Movie</h3>';
       echo '<form name="input" action="add.php" method="post">';
-      echo '<table><tr><td class="label">Name:</td><td><input type="text" name="movie_name" size="75" id="movie_name"></td></tr>';
-      echo '<tr><td class="label">aka:</td><td><input type="text" name="movie_aka" size="75"></td></tr>';
-      echo '<tr><td class="label">Year:</td><td><input type="text" name="movie_year" size="10"></td></tr>';
+      echo '<table><tr><td class="label">Name:</td><td><input type="text" class="plain" name="movie_name" size="75" id="movie_name" autofocus></td></tr>';
+      echo '<tr><td class="label">aka:</td><td><input type="text" class="plain" name="movie_aka" size="75"></td></tr>';
+      echo '<tr><td class="label">Year:</td><td><input type="text" class="plain" name="movie_year" size="10"></td></tr>';
       echo '<tr><td class="label">Description:</td><td><textarea class="plain" name="movie_description" rows="5" cols="72"></textarea></td></tr>';
-      echo '<tr><td class="label">Quote:</td><td><input type="text" name="movie_quote" size="75"></td></tr>';
-      echo '<tr><td class="label">IMDb:</td><td><input type="text" name="movie_imdb" size="75"></td></tr>';
-      echo '<tr><td class="label">Wikipedia:</td><td><input type="text" name="movie_wikipedia" size="75"></td></tr>';
-      echo '<tr><td class="label">Poster image:</td><td><input type="text" name="movie_poster_image" size="75" id="movie_poster_image"></td></tr>';
-      echo '<tr><td class="label">Special guests:</td><td><input type="text" name="movie_attendees" size="75"></td></tr>';
+      echo '<tr><td class="label">Quote:</td><td><input type="text" class="plain" name="movie_quote" size="75"></td></tr>';
+      echo '<tr><td class="label">IMDb:</td><td><input type="text" class="plain" name="movie_imdb" size="75"></td></tr>';
+      echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" name="movie_wikipedia" size="75"></td></tr>';
+      echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" name="movie_poster_image" size="75" id="movie_poster_image"></td></tr>';
+      echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" name="movie_attendees" size="75"></td></tr>';
       echo '<tr><td class="label">Date watched:</td>';
       echo '<td><select name="day">';
         for ($i = 1; $i <= 31; $i++) {
@@ -59,11 +59,12 @@
         }
         }
       echo '</select></td></tr>';
-      echo '<tr><td class="label">Chosen by:</td><td><input type="text" name="movie_chosen_by" size="10"></td></tr>';
+      echo '<tr><td class="label">Chosen by:</td><td><input type="text" class="plain" name="movie_chosen_by" size="10"></td></tr>';
       echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
       echo '<input type="hidden" name="insert" value="1"></td></tr></table></form>';
 
       echo '<div id="images" style="margin-left: 85px"></div>';
+      echo '</div>';
 
       include 'footer.inc.php'; /* Include footer.inc.php */
       break;
