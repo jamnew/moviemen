@@ -1,5 +1,4 @@
 <?php
-  ini_set('session.use_only_cookies', true); /* Sets PHP configuration directive that only cookies are to be used for session reference passing */
   if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
   $_SESSION['current_page']='index.php'; /* Set the page to return to if login link is clicked */
   $_SESSION['login_page']=FALSE; /* Is this login.php? */
@@ -38,7 +37,7 @@
       echo 'Watched on '.$row["movie_date_watched"].', chosen by '.$row["movie_chosen_by"].'.';
     }
     echo '</div>'; // end movie_attendees
-    
+
     echo '<div class="movie_meta">';
     echo '<span class="link" id="edit"><a href="edit.php?movie_id='.$row["movie_id"].'">Edit</a></span>';
     if ($row["movie_imdb"] != "") {
@@ -50,7 +49,7 @@
     if (file_exists('posters/'.$row["movie_id"].'.jpg')) {
       echo '<span id="postericon"><a href="posters/b'.$row["movie_id"].'.jpg" target="_blank">Poster</a></span>'; }
     echo '</div>'; // end movie_meta
-    
+
     echo '</div>'; // end movie_block
   }
 

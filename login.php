@@ -1,5 +1,4 @@
 <?php
-	ini_set('session.use_only_cookies', true); /* Sets PHP configuration directive that only cookies are to be used for session reference passing */
 	if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
 	$_SESSION['login_page']=TRUE; /* Is this login.php? */
 
@@ -37,11 +36,11 @@
 
 			$user = mysqli_real_escape_string($link, $_POST["user"]); /* Escape special chars in user input */
 			$pass = md5($_POST["pass"]); /* Hash password supplied by user */
-						
+
 			$result = mysqli_query($link, 'SELECT user_name FROM users WHERE user_name=\''.$user.'\' AND user_pass=\''.$pass.'\'') or die('Query failed: ' . mysqli_error($link)); /* Check if credentials supplied match */
 
 			if (mysqli_num_rows($result) > 0) { /* If credentials match enter this block */
-				
+
 				if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
 				$_SESSION['authorized'] = TRUE; /* Set user to authorized. */
 				setcookie('USER', $user, time()+86400); /* Set user to cookie (1 day) to be used to re-login after a session deactivates */
@@ -66,9 +65,9 @@
 					header('Location: index.php'); /* Session variable is not set redirect to index.php */
 				}
 			}
-			
+
 			else { /* If credentials do not match allow user to retry */
-				
+
 				include 'header.inc.php'; /* Include header.inc.php */
 				echo '<hr>';
 
@@ -90,7 +89,7 @@
 			break;
 
 		case 2: /* When a user clicks logout from any page this case will occur */
-			
+
 			if (session_id() == "") session_start(); /* Checks for active session and if not, session is started or resumed. */
 			$_SESSION['authorized'] = FALSE; /* Set user to unauthorized. */
 			setcookie('USER', $user, time()-3600); /* Delete user cookie by setting expiration date one hour in the past */

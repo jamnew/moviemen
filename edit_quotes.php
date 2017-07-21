@@ -1,5 +1,4 @@
 <?php
-	ini_set('session.use_only_cookies', true); /* Sets PHP configuration directive that only cookies are to be used for session reference passing */
 	if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
 	$_SESSION['current_page']='edit.php'; /* Set the page to return to if login link is clicked */
 	$_SESSION['login_page']=FALSE; /* Is this login.php? */
@@ -16,12 +15,12 @@
 		switch ($_REQUEST["write"]) {
 
 		case 0: /* When user clicks edit movie from index.php this case will occur */
-		
-			// Display record from database to be edited	
+
+			// Display record from database to be edited
 			$result = mysqli_query($link, 'SELECT movie_id,movie_name,movie_quote FROM movies ORDER BY movie_date_watched DESC') or die('Query failed: '.mysqli_error($link));
 
 			echo '<hr>';
-			
+
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				echo '<form name="input" action="edit_quotes.php" method="post">';
 				echo '<table><tr><td class="label" id="left">'.$row["movie_name"].'</td></tr>';
@@ -30,13 +29,13 @@
 				echo '<input type="hidden" name="write" value="1"></td>';
 				echo '<td><input type="submit" value="Submit"></td></tr></table></form>';
 			}
-		
+
 			mysqli_free_result($result); /* Free result set */
 			mysqli_close($link);	/* Closing connection */
 			include 'footer.inc.php'; /* Include footer.inc.php */
 
 			break;
-		
+
 		case 1: /* When user sumbits edit to be written to database this case occurs */
 
 			// Escape all user input used in database queries to prevent SQL injection attacks
@@ -45,7 +44,7 @@
 
 			// Commit edited record to database
 			$result = mysqli_query($link, "UPDATE movies SET movie_quote='".$movie_quote."' WHERE movie_id='".$movie_id."'");
-			
+
 			// Action on result of update
 			if($result) {
 				mysqli_close($link); /* Closing connection */
@@ -63,7 +62,7 @@
 	else if (isset($_COOKIE['USER']) && isset($_COOKIE['PASS'])) { /* If user has entered credentials less than one day ago and automatically login */
 		$user = mysqli_real_escape_string($link, $_COOKIE["USER"]); /* Add slashes to escape chars in case the user has hacked the cookie */
 		$pass = mysqli_real_escape_string($link, $_COOKIE["PASS"]); /* Add slashes to escape chars in case the user has hacked the cookie */
-					
+
 		$result = mysqli_query($link, 'SELECT user_name FROM users WHERE user_name=\''.$user.'\' AND user_pass=\''.$pass.'\'') or die('Query failed: ' . mysqli_error($link)); /* Check if credentials supplied match */
 
 		if (mysqli_num_rows($result) > 0) { /* If credentials match enter this block */

@@ -1,5 +1,4 @@
 <?php
-  ini_set('session.use_only_cookies', true); /* Sets PHP configuration directive that only cookies are to be used for session reference passing */
   if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed */
 ?>
 <html>
@@ -34,7 +33,7 @@
 <!--Login link-->
 <?php
   echo '<div class="mm_login">';
-  
+
   if (!$_SESSION['login_page']) {
     if ($_SESSION['authorized'] == TRUE) { /* Check if user has been recently authorized */
       echo '<a href="feed/"><img style = "vertical-align:text-top;" src = "feed/small_rss.png" /></a>';
@@ -46,7 +45,7 @@
     else if (isset($_COOKIE['USER']) && isset($_COOKIE['PASS'])) { /* If user entered credentials less than one day ago automatically login */
       $user = mysqli_real_escape_string($link, $_COOKIE["USER"]); /* Add slashes to escape chars in case the user has hacked the cookie */
       $pass = mysqli_real_escape_string($link, $_COOKIE["PASS"]); /* Add slashes to escape chars in case the user has hacked the cookie */
-            
+
       $result = mysqli_query($link, 'SELECT user_name FROM users WHERE user_name=\''.$user.'\' AND user_pass=\''.$pass.'\'') or die('Query failed: ' . mysqli_error($link)); /* Check if credentials supplied match */
 
       if (mysqli_num_rows($result) > 0) { /* If credentials match enter this block */
@@ -68,8 +67,8 @@
       echo ' | <a href="login.php?action=0" class="menu"><b>Login</b></a>';
     }
   }
-  
-  echo '</div>';  
+
+  echo '</div>';
 ?>
 
 

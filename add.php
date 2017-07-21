@@ -1,5 +1,4 @@
 <?php
-  ini_set('session.use_only_cookies', true); /* Sets PHP configuration directive that only cookies are to be used for session reference passing */
   if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
   $_SESSION['current_page']='add.php'; /* Set the page to return to if login link is clicked */
   $_SESSION['login_page']=FALSE; /* Is this login.php? */
