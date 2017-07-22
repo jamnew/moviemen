@@ -52,6 +52,9 @@
 <!--Title block-->
 <div id="mm_title">
 <?php
+  // Parse config file
+  $config = parse_ini_file('../config.ini');
+
   //Pick random movies for quote and posters
   $result = mysqli_query($link, 'SELECT movie_id, movie_name, movie_aka, movie_year, movie_quote FROM movies ORDER BY movie_id ASC') or die('Query failed: ' . mysqli_error($link));
 
@@ -59,7 +62,11 @@
   $aon = array();
   while (count($aom) < 14) {
       $m_id = mt_rand(0,mysqli_num_rows($result)-1); // MySQL results internal pointer starts at 0 and ends at num_rows minus 1
-      if (!in_array($m_id,$aon) && file_exists('posters/'.($m_id + 1).'.jpg')) {
+
+      $thumbnail_file = sprintf('%s.%s', ($m_id + 1), $config['posters_image_format']);
+      $thumbnail_path = sprintf('%s/%s', $config['posters_path'], $thumbnail_file);
+
+      if (!in_array($m_id,$aon) && file_exists($thumbnail_path)) {
         mysqli_data_seek($result, $m_id) or die ('Row index out of bounds');
         $aom[] = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $aon[] = $m_id;
@@ -79,7 +86,7 @@
   echo '<div class="movie_posters">';
   echo '<table width=800><tr>';
   for ($i = 0; $i < count($aom); $i++){
-    echo '<td align=center><a href="posters/b'.$aom[$i]["movie_id"].'.jpg" target="_blank"><img src="posters/'.$aom[$i]["movie_id"].'.jpg" title="'.$aom[$i]["movie_name"]." (".$aom[$i]["movie_year"].")".'"></a></td>';
+    echo '<td align=center><a href="poster.php?movie_id='.$aom[$i]["movie_id"].'"><img src="poster.php?movie_id='.$aom[$i]["movie_id"].'&thumbnail" title="'.$aom[$i]["movie_name"]." (".$aom[$i]["movie_year"].")".'"></a></td>';
   }
   echo '</tr></table>';
   echo '</div>';

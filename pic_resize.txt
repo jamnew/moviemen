@@ -1,3 +1,0 @@
-for i in `ls`; do convert -resize x75 $i resized_$i; done
-
-rename 's/\resized_b//g' resized*

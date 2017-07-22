@@ -25,6 +25,9 @@
         die('Query Error: '.db_error());
       }
 
+      /* TODO */
+      // Display current poster image and thumbnail (dimensions etc) so the user can determine whether it needs updating
+
       // Display edit form
       if(!empty($result)){
         $row = $result[0];
@@ -134,15 +137,45 @@
 
       // Retrieve poster image file if required
       if(!empty($movie_poster_image)){
-        $url = $movie_poster_image;
-        $file = explode('/',$url);
-        $file = $file[count($file)-1];
-        $img = '/tmp/'.$file;
-        file_put_contents($img, file_get_contents($url));
-        exec("convert /tmp/".$file." /tmp/b".$movie_id.".jpg");
-        exec("convert /tmp/".$file." -resize x75 /tmp/".$movie_id.".jpg");
-        copy("/tmp/b".$movie_id.".jpg", "posters/b".$movie_id.".jpg");
-        copy("/tmp/".$movie_id.".jpg", "posters/".$movie_id.".jpg");
+        // Parse config file
+        $config = parse_ini_file('../config.ini');
+
+        /* TODO */
+        // Check path is configured and use default if not
+        // Check path exists
+        // Check path can be created if doesn't exist
+        // Create path if doesn't exist
+        // Check path is writable
+
+        // Get image filename from poster image URL
+        $temp_file = explode('/', $movie_poster_image);
+        $temp_file = $temp_file[count($temp_file) - 1];
+
+        // Set temp path for poster image retrieval
+        $temp_path = sprintf('%s/%s', $config['temp_path'], $temp_file);
+
+        // Retrieve poster image
+        file_put_contents($temp_path, file_get_contents($movie_poster_image));
+
+        // Set path for poster image
+        $image_file = sprintf('b%s.%s', $movie_id, $config['posters_image_format']);
+        $image_path = sprintf('%s/%s', $config['posters_path'], $image_file);
+
+        // Set path for poster thumbnail
+        $thumbnail_file = sprintf('%s.%s', $movie_id, $config['posters_image_format']);
+        $thumbnail_path = sprintf('%s/%s', $config['posters_path'], $thumbnail_file);
+
+        // Convert poster image
+        exec("convert $temp_path $image_path");
+
+        // Convert and resize poster thumbnail
+        exec("convert $temp_path -resize x75 $thumbnail_path");
+
+        // Set permissions on poster image and thumbnail
+        chmod($image_path, 0664);
+        chmod($thumbnail_path, 0664);
+
+        // Remove stored poster image URL
         db_query("UPDATE `movies` SET `movie_poster_image` = NULL WHERE `movie_id` = $movie_id");
       }
 
