@@ -121,13 +121,23 @@
   echo '<h1 class="title"><a href="index.php" class="title" title="'.$count_movies.' movies and counting...">Movie Men</a></h1>';
 
   //Display random movie quote
-  echo '<div class="mm_quote" title="'.$quote_movie["movie_name"]." (".$quote_movie["movie_year"].")".'">'.$quote.'</div>';
+  if(empty($quote_movie['movie_aka'])){
+    echo '<div class="mm_quote" title="'.$quote_movie["movie_name"].' ('.$quote_movie["movie_year"].')">'.$quote.'</div>';
+  }
+  else{
+    echo '<div class="mm_quote" title="'.$quote_movie["movie_name"].' ('.$quote_movie["movie_year"].') aka '.$quote_movie["movie_aka"].'">'.$quote.'</div>';
+  }
 
   //Display random poster thumbnails
   echo '<div class="movie_posters">';
   echo '<table width=800><tr>';
   foreach($movies as $movie){
-    echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"]." (".$movie["movie_year"].")".'" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
+    if(empty($movie['movie_aka'])){
+      echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"].' ('.$movie["movie_year"].')" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
+    }
+    else{
+      echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"].' ('.$movie["movie_year"].') aka '.$movie['movie_aka'].'" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
+    }
   }
   echo '</tr></table>';
   echo '</div>';

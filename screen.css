@@ -222,3 +222,8 @@ img.lightbox_image {
   /*https://stackoverflow.com/questions/18803743/size-an-image-to-a-percentage-of-html-window*/
   max-height: 90vh;
 }
+
+div.poster_selection {
+  display: flex; /* changes to 'flex' on lightbox toggle*/
+  justify-content: center; /* for horizontal alignment */
+}

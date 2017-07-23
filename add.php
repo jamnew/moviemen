@@ -63,7 +63,8 @@
       echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
       echo '<input type="hidden" name="insert" value="1"></td></tr></table></form>';
 
-      echo '<div id="images" style="margin-left: 85px"></div>';
+      echo '<div id="images" class="poster_selection"></div>';
+
       echo '</div>';
 
       include 'footer.inc.php'; /* Include footer.inc.php */
