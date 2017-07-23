@@ -134,28 +134,40 @@ a:link#wikipedia, a:visited#wikipedia {
 		font-family: Arial, sans-serif;
 }
 
-a:link#quote, a:visited#quote {
+div#quote {
     background-color: #E5FAE3;
     color: blue;
 		margin-right: 8px;
 		padding: 3px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
 		font-size: 0.6em;
 		font-family: Arial, sans-serif;
+    cursor: pointer;
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-khtml-user-select: none; /* Konqueror HTML */
+		-moz-user-select: none; /* Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
-a:link#poster, a:visited#poster {
+div#poster {
     background-color: #FAE3E5;
     color: blue;
 		margin-right: 8px;
 		padding: 3px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
 		font-size: 0.6em;
 		font-family: Arial, sans-serif;
+		cursor: pointer;
+		-webkit-touch-callout: none; /* iOS Safari */
+	  -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+	  -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 input.plain {
@@ -178,4 +190,35 @@ td.label {
 
 td.label#left {
 	text-align: left;
+}
+
+div.lightbox_background {
+	position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /*overflow: auto;*/
+  background: rgba(0, 0, 0, 0.85);
+
+  /*https://stackoverflow.com/questions/114543/how-to-horizontally-center-a-div-in-another-div/16144913#16144913*/
+  display: none; /* changes to 'flex' on lightbox toggle*/
+  flex-wrap: wrap; /* optional. only if you want the items to wrap */
+  justify-content: center; /* for horizontal alignment */
+  align-items: center; /* for vertical alignment */
+}
+
+div.lightbox_image_container {
+  display: none; /* changes to 'block' on lightbox toggle*/
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	background-color: black;
+}
+
+img.lightbox_image {
+	display: none; /* changes to 'inline' on lightbox toggle*/
+  /*https://stackoverflow.com/questions/18803743/size-an-image-to-a-percentage-of-html-window*/
+  max-height: 90vh;
 }

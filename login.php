@@ -6,11 +6,11 @@
 	// Connecting to & selecting database
 	$link = db_connect();
 
-	include 'header.inc.php'; /* Include header.inc.php */
-
 	switch ($_REQUEST["action"]) {
 
 		case 0: /* When user clicks login from any page this case will occur */
+
+			include 'header.inc.php'; /* Include header.inc.php */
 
 			// Login form
       echo '<div class="form_block">';
@@ -67,9 +67,11 @@
 			else { /* If credentials do not match allow user to retry */
 
 				include 'header.inc.php'; /* Include header.inc.php */
-				echo '<hr>';
 
 				// Login form
+				echo '<div class="form_block">';
+				echo '<h3 class="page_name">Login</h3>';
+				echo '<p class="warning">Username or password was incorrect.</p>'; /* Message advising user that credentials supplied incorrect */
 				echo '<form name="input" action="login.php" method="post">';
 				echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"></td></tr>';
 				echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"></td></tr>';
@@ -79,7 +81,7 @@
 					echo '<input type="hidden" name="movie_id" value="'.$_REQUEST['movie_id'].'">';
 				}
 				echo '</td></tr></table></form>';
-				echo '<p class="warning">Username or password was incorrect.</p>'; /* Message advising user that credentials supplied incorrect */
+				echo '</div>';
 
 				include 'footer.inc.php'; /* Include footer.inc.php */
 			}

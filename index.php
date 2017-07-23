@@ -44,14 +44,14 @@
     if ($row["movie_wikipedia"] != "") {
       echo '<a id="wikipedia" href="'.$row["movie_wikipedia"].'">Wikipedia</a>'; }
     if ($row["movie_quote"] != "") {
-      echo '<a id="quote" href="#" title="'.$row["movie_quote"].'">Quote</a>'; }
+      echo '<div id="quote" title="'.$row["movie_quote"].'">Quote</div>'; }
 
     // Poster
     $config = parse_ini_file('../config.ini');
     $image_file = sprintf('b%s.%s', $row['movie_id'], $config['posters_image_format']);
     $image_path = sprintf('%s/%s', $config['posters_path'], $image_file);
     if (file_exists($image_path)) {
-      echo '<a id="poster" href="poster.php?movie_id='.$row["movie_id"].'">Poster</a>'; }
+      echo '<div id="poster" onclick="lightbox_toggle(\'poster.php?movie_id='.$row["movie_id"].'\')">Poster</div>'; }
 
     echo '</div>'; // end movie_meta
 

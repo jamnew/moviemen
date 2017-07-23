@@ -7,13 +7,12 @@
   // Connecting to & selecting database
   $link = db_connect();
 
-  include 'header.inc.php'; /* Include header.inc.php */
-
   if ($_SESSION['authorized']) { /* Check if user is authorized */
 
     switch ($_REQUEST["write"]) {
 
     case 0: /* When user clicks edit movie from index.php this case will occur */
+      include 'header.inc.php'; /* Include header.inc.php */
 
       // Clean up user input
       $movie_id = db_quote($_REQUEST['movie_id']);

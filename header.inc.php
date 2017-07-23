@@ -26,9 +26,38 @@
         });
       });
     });
+    function lightbox_toggle(img_src){
+      var lightbox_background = document.getElementById('lightbox_background');
+      var lightbox_image_container = document.getElementById('lightbox_image_container');
+      var lightbox_image = document.getElementById('lightbox_image');
+
+      // Toggle lightbox
+      if(img_src){
+        // Set img src
+        lightbox_image.src = img_src;
+
+        // Show lightbox
+        lightbox_background.style.display = "flex";
+        lightbox_image_container.style.display = "block";
+        lightbox_image.style.display = "inline";
+      }
+      else{
+        // Hide lightbox
+        lightbox_background.style.display = "none";
+        lightbox_image_container.style.display = "none";
+        lightbox_image.style.display = "none";
+      }
+    }
   </script>
 </head>
 <body>
+
+<!--Lightbox background-->
+<div id="lightbox_background" class="lightbox_background" onclick="lightbox_toggle()">
+  <div id="lightbox_image_container" class="lightbox_image_container">
+    <img id="lightbox_image" class="lightbox_image" src="" />
+  </div>
+</div>
 
 <!--Login link-->
 <?php
@@ -98,7 +127,7 @@
   echo '<div class="movie_posters">';
   echo '<table width=800><tr>';
   foreach($movies as $movie){
-    echo '<td align=center><a href="poster.php?movie_id='.$movie["movie_id"].'"><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"]." (".$movie["movie_year"].")".'"></a></td>';
+    echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"]." (".$movie["movie_year"].")".'" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
   }
   echo '</tr></table>';
   echo '</div>';
