@@ -48,45 +48,57 @@
   echo '</div>';
 ?>
 
-
 <!--Title block-->
 <div id="mm_title">
 <?php
   // Parse config file
   $config = parse_ini_file('../config.ini');
 
-  //Pick random movies for quote and posters
-  $result = mysqli_query($link, 'SELECT movie_id, movie_name, movie_aka, movie_year, movie_quote FROM movies ORDER BY movie_id ASC') or die('Query failed: ' . mysqli_error($link));
-
-  $aom = array();
-  $aon = array();
-  while (count($aom) < 14) {
-      $m_id = mt_rand(0,mysqli_num_rows($result)-1); // MySQL results internal pointer starts at 0 and ends at num_rows minus 1
-
-      $thumbnail_file = sprintf('%s.%s', ($m_id + 1), $config['posters_image_format']);
-      $thumbnail_path = sprintf('%s/%s', $config['posters_path'], $thumbnail_file);
-
-      if (!in_array($m_id,$aon) && file_exists($thumbnail_path)) {
-        mysqli_data_seek($result, $m_id) or die ('Row index out of bounds');
-        $aom[] = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        $aon[] = $m_id;
-        if ($aom[count($aom)-1]["movie_quote"] != '') {
-          $rqi = count($aom)-1;
-        }
-      }
+  // Select all movies
+  $query = "SELECT * from `movies`";
+  $result = db_select($query);
+  if($result === false) {
+    die('Query Error: '.db_error());
   }
 
-  //Display title
-  echo '<h1 class="title"><a href="index.php" class="title" title="'.mysqli_num_rows($result).' movies and counting...">Movie Men</a></h1>';
+  // Count of all movies
+  $count_movies = count($result);
 
-  //Display quote
-  echo '<div class="mm_quote" title="'.$aom[$rqi]["movie_name"]." (".$aom[$rqi]["movie_year"].")".'">'.$aom[$rqi]["movie_quote"].'</div>';
+  // Randomly choose a set of movies for display of poster thumbnails
+  $movies = array();
 
-  //Display posters
+  while(count($movies) < 14){
+    $random_movie_index = mt_rand(1, count($result)) - 1;
+    $movie_id = $result[$random_movie_index]['movie_id'];
+
+    $thumbnail_file = sprintf('%s.%s', ($movie_id), $config['posters_image_format']);
+    $thumbnail_path = sprintf('%s/%s', $config['posters_path'], $thumbnail_file);
+
+    if(file_exists($thumbnail_path)){
+      $movies[] = $result[$random_movie_index];
+      array_splice($result, $random_movie_index, 1); // Remove the element at random index to prevent duplicates
+    }
+  }
+
+  // Randomly choose a movie quote from thumbnail set
+  $random_movie_index = mt_rand(1, count($movies)) - 1;
+  $quote_movie = $movies[$random_movie_index];
+  $quote = $quote_movie['movie_quote'];
+  if(empty($quote)){
+    $quote = "Toto, I've a feeling we're not in Kansas anymore.";
+  }
+
+  //Display title with movie count tooltip
+  echo '<h1 class="title"><a href="index.php" class="title" title="'.$count_movies.' movies and counting...">Movie Men</a></h1>';
+
+  //Display random movie quote
+  echo '<div class="mm_quote" title="'.$quote_movie["movie_name"]." (".$quote_movie["movie_year"].")".'">'.$quote.'</div>';
+
+  //Display random poster thumbnails
   echo '<div class="movie_posters">';
   echo '<table width=800><tr>';
-  for ($i = 0; $i < count($aom); $i++){
-    echo '<td align=center><a href="poster.php?movie_id='.$aom[$i]["movie_id"].'"><img src="poster.php?movie_id='.$aom[$i]["movie_id"].'&thumbnail" title="'.$aom[$i]["movie_name"]." (".$aom[$i]["movie_year"].")".'"></a></td>';
+  foreach($movies as $movie){
+    echo '<td align=center><a href="poster.php?movie_id='.$movie["movie_id"].'"><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"]." (".$movie["movie_year"].")".'"></a></td>';
   }
   echo '</tr></table>';
   echo '</div>';
