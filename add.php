@@ -27,6 +27,7 @@
       echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" name="movie_wikipedia" size="75"></td></tr>';
       echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" name="movie_poster_image" size="75" id="movie_poster_image"></td></tr>';
       echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" name="movie_attendees" size="75"></td></tr>';
+      echo '<tr><td class="label">Event:</td><td><input type="text" class="plain" name="movie_event" size="75"></td></tr>';
       echo '<tr><td class="label">Date watched:</td>';
       echo '<td><select name="day">';
         for ($i = 1; $i <= 31; $i++) {
@@ -87,6 +88,7 @@
       $movie_chosen_by = db_quote(trim($_POST["movie_chosen_by"]));
       $movie_attendees = db_quote(trim($_POST["movie_attendees"]));
       $movie_quote = db_quote(trim($_POST["movie_quote"]));
+      $movie_event = db_quote(trim($_POST["movie_event"]));
 
       // Insert single movie
       $query  = "INSERT INTO `movies` ";
@@ -101,7 +103,8 @@
       $query .= "`movie_date_watched`, ";
       $query .= "`movie_chosen_by`, ";
       $query .= "`movie_attendees`, ";
-      $query .= "`movie_quote`";
+      $query .= "`movie_quote`, ";
+      $query .= "`movie_event`";
       $query .= ") ";
       $query .= "VALUES ";
       $query .= "(";
@@ -115,7 +118,8 @@
       $query .= "'$movie_date_watched', ";
       $query .= "'$movie_chosen_by', ";
       $query .= "'$movie_attendees', ";
-      $query .= "'$movie_quote' ";
+      $query .= "'$movie_quote', ";
+      $query .= "'$movie_event'";
       $query .= ")";
 
       $result = db_query($query);
@@ -163,8 +167,8 @@
         exec("convert $temp_path -resize x75 $thumbnail_path");
 
         // Set permissions on poster image and thumbnail
-	chmod($image_path, 0664);
-	chmod($thumbnail_path, 0664);
+        chmod($image_path, 0664);
+        chmod($thumbnail_path, 0664);
 
         // Remove stored poster image URL
         db_query("UPDATE `movies` SET `movie_poster_image` = NULL WHERE `movie_id` = $movie_id");

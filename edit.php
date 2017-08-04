@@ -43,6 +43,7 @@
         echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" name="movie_wikipedia" size="75" value="'.$row["movie_wikipedia"].'"></td></tr>';
         echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" name="movie_poster_image" size="75" id="movie_poster_image" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="refresh_16.png" title="Load poster images" /></td></tr>';
         echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" name="movie_attendees" size="75" value="'.$row["movie_attendees"].'"></td></tr>';
+        echo '<tr><td class="label">Event:</td><td><input type="text" class="plain" name="movie_event" size="75" value="'.$row["movie_event"].'"></td></tr>';
         echo '<tr><td class="label">Date watched:</td>';
         echo '<td><select name="day">';
           for ($i = 1; $i <= 31; $i++) {
@@ -113,6 +114,7 @@
       $movie_chosen_by = db_quote(trim($_POST["movie_chosen_by"]));
       $movie_attendees = db_quote(trim($_POST["movie_attendees"]));
       $movie_quote = db_quote(trim($_POST["movie_quote"]));
+      $movie_event = db_quote(trim($_POST["movie_event"]));
 
       // Update single movie
       $query  = "UPDATE `movies` SET ";
@@ -126,7 +128,8 @@
       $query .= "`movie_date_watched` = '$movie_date_watched', ";
       $query .= "`movie_chosen_by` = '$movie_chosen_by', ";
       $query .= "`movie_attendees` = '$movie_attendees', ";
-      $query .= "`movie_quote` = '$movie_quote' ";
+      $query .= "`movie_quote` = '$movie_quote', ";
+      $query .= "`movie_event` = '$movie_event' ";
       $query .= "WHERE `movie_id` = $movie_id";
 
       $result = db_query($query);
