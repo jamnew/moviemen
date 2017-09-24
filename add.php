@@ -13,7 +13,7 @@
 
     case 0: /* When user clicks add movie from index.php this case will occur */
 
-      include 'header.inc.php'; /* Include header.inc.php */
+      include '_header.php'; /* Include _header.php */
 
       echo '<div class="form_block">';
       echo '<h3 class="page_name">Add Movie</h3>';
@@ -68,7 +68,7 @@
 
       echo '</div>';
 
-      include 'footer.inc.php'; /* Include footer.inc.php */
+      include '_footer.php'; /* Include _footer.php */
       break;
 
     case 1: /* When user sumbits addition to be written to database this case occurs */

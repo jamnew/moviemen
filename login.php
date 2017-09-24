@@ -11,7 +11,7 @@
 
 		case 0: /* When user clicks login from any page this case will occur */
 
-			include 'header.inc.php'; /* Include header.inc.php */
+			include '_header.php'; /* Include _header.php */
 
 			// Login form
 			echo '<div class="form_block">';
@@ -24,7 +24,7 @@
 			echo '</td></tr></table></form>';
 			echo '</div>';
 
-			include 'footer.inc.php'; /* Include footer.inc.php */
+			include '_footer.php'; /* Include _footer.php */
 
 			break;
 
@@ -52,7 +52,7 @@
 
 			else { /* If credentials do not match allow user to retry */
 
-				include 'header.inc.php'; /* Include header.inc.php */
+				include '_header.php'; /* Include _header.php */
 
 				// Login form
 				echo '<div class="form_block">';
@@ -69,7 +69,7 @@
 				echo '</td></tr></table></form>';
 				echo '</div>';
 
-				include 'footer.inc.php'; /* Include footer.inc.php */
+				include '_footer.php'; /* Include _footer.php */
 			}
 
 			break;

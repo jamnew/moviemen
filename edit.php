@@ -13,7 +13,7 @@
 
     case 0: /* When user clicks edit movie from index.php this case will occur */
 
-      include 'header.inc.php'; /* Include header.inc.php */
+      include '_header.php'; /* Include _header.php */
 
       // Clean up user input
       $movie_id = db_quote($_REQUEST['movie_id']);
@@ -92,7 +92,7 @@
       }
 
       mysqli_close($link);  /* Closing connection */
-      include 'footer.inc.php'; /* Include footer.inc.php */
+      include '_footer.php'; /* Include _footer.php */
 
       break;
 

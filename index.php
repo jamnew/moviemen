@@ -5,7 +5,7 @@
   // Connecting to & selecting database
   $link = db_connect();
 
-  include 'header.inc.php'; /* Include header.inc.php */
+  include '_header.php'; /* Include _header.php */
 
   // Select all movies in descending order by date watched
   $result = db_select("SELECT * from `movies` ORDER BY `movie_date_watched` DESC, `movie_id` DESC");
@@ -57,5 +57,5 @@
   }
 
   mysqli_close($link);  /* Closing connection */
-  include 'footer.inc.php'; /* Include footer.inc.php */
+  include '_footer.php'; /* Include _footer.php */
 ?>
