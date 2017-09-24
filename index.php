@@ -1,8 +1,6 @@
 <?php
-  if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
-  $_SESSION['current_page'] = 'index.php'; /* Set the page to return to if login link is clicked */
-
   include 'functions.php';
+  manage_session(array('current_page' => 'index', 'current_id' => NULL));
 
   // Connecting to & selecting database
   $link = db_connect();

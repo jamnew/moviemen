@@ -1,6 +1,3 @@
-<?php
-  if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed */
-?>
 <html>
 <head>
   <title>Movie Men (MMVII)</title>
@@ -12,7 +9,21 @@
       $("#movie_name").change(function(){
         $.ajax({
           url: '/images.php',
-          data: 'name='+$('#movie_name').val()
+          data: {
+            name: $('#movie_name').val(),
+            year: $('#movie_year').val()
+          }
+        }).done(function(data){
+          $("#images").html(data);
+        });
+      });
+      $("#movie_year").change(function(){
+        $.ajax({
+          url: '/images.php',
+          data: {
+            name: $('#movie_name').val(),
+            year: $('#movie_year').val()
+          }
         }).done(function(data){
           $("#images").html(data);
         });
@@ -20,7 +31,10 @@
       $("#refresh").mousedown(function(){
         $.ajax({
           url: '/images.php',
-          data: 'name='+$('#movie_name').val()
+          data: {
+            name: $('#movie_name').val(),
+            year: $('#movie_year').val()
+          }
         }).done(function(data){
           $("#images").html(data);
         });
@@ -63,8 +77,8 @@
 <?php
   echo '<div class="mm_login">';
 
-  if ($_SESSION['authorized'] == TRUE) { /* Check if user has been recently authorized */
-    echo 'Logged in as '.$_SESSION['USER'];
+  if ($_SESSION['authorised'] == true) { /* Check if user has been recently authorised */
+    echo 'Logged in as '.$_SESSION['user'];
     echo ' | <a href="feed/" class="menu"><b>Feed</b></a>';
     echo '| <a href="add.php" class="menu"><b>Add Movie</b></a>';
     echo '| <a href="login.php?action=2" class="menu"><b>Logout</b></a>';

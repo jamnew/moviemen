@@ -15,13 +15,14 @@
     $customsearchService = new Google_Service_Customsearch($client);
 
     $name = $_REQUEST['name'];
+    $year = $_REQUEST['year'];
     $start = '1';
 
     if(!empty($_REQUEST['start'])){
       $start = $_REQUEST['start'];
     }
 
-    $q = "$name movie poster";
+    $q = "$name $year movie poster";
 
     $optParams = array(
       'cx' => '004093374540663055336:m2srg0atvps',

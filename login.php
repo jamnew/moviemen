@@ -1,28 +1,26 @@
 <?php
-	if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
-
 	include 'functions.php';
+	manage_session();
 
 	// Connecting to & selecting database
 	$link = db_connect();
 
-	switch ($_REQUEST["action"]) {
+	$step = empty($_REQUEST["action"]) ? 0 : $_REQUEST["action"];
+
+	switch ($step) {
 
 		case 0: /* When user clicks login from any page this case will occur */
 
 			include 'header.inc.php'; /* Include header.inc.php */
 
 			// Login form
-      echo '<div class="form_block">';
+			echo '<div class="form_block">';
 			echo '<h3 class="page_name">Login</h3>';
 			echo '<form name="input" action="login.php" method="post">';
 			echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"></td></tr>';
 			echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"></td></tr>';
 			echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
 			echo '<input type="hidden" name="action" value="1">';
-			if (isset($_REQUEST['movie_id'])) { /* Pass movie_id along */
-				echo '<input type="hidden" name="movie_id" value="'.$_REQUEST['movie_id'].'">';
-			}
 			echo '</td></tr></table></form>';
 			echo '</div>';
 
@@ -38,30 +36,18 @@
 			$result = mysqli_query($link, 'SELECT user_name FROM users WHERE user_name=\''.$user.'\' AND user_pass=\''.$pass.'\'') or die('Query failed: ' . mysqli_error($link)); /* Check if credentials supplied match */
 
 			if (mysqli_num_rows($result) > 0) { /* If credentials match enter this block */
+				$_SESSION['authorised'] = true; /* Set user to authorised. */
+				$_SESSION['user'] = $user;
 
-				if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
-				$_SESSION['authorized'] = TRUE; /* Set user to authorized. */
-				$_SESSION['USER'] = $user;
-				$_SESSION['PASS'] = $pass;
-				if (isset($_SESSION['current_page'])) {
-					if ($_SESSION['current_page'] == 'edit.php') { /* Check if we came from edit.php */
-						if (isset($_REQUEST['movie_id'])) { /* Check if we came from edit link */
-							header('Location: '.$_SESSION['current_page'].'?movie_id='.$_REQUEST['movie_id']); /* Send user back to edit.php with movie_id */
-						}
-						else {
-							header('Location: index.php'); /* User accessed edit.php directly without a movie_id so redirect to index.php */
-						}
-					}
-					else if ($_SESSION['current_page'] == 'add.php') { /* Check if we came from add.php */
-						header('Location: add.php'); /* Send user back to add.php */
-					}
-					else { /* Came from neither edit.php or add.php so send back to index.php */
-						header('Location: index.php');
+				$location = "index";
+				if(!empty($_SESSION['current_page'])){
+					$location = $_SESSION['current_page'];
+					if(!empty($_SESSION['current_id'])){
+						$location .= '?movie_id='.$_SESSION['current_id'];
 					}
 				}
-				else {
-					header('Location: index.php'); /* Session variable is not set redirect to index.php */
-				}
+
+				header("Location: $location");
 			}
 
 			else { /* If credentials do not match allow user to retry */

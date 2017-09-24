@@ -1,13 +1,11 @@
 <?php
-  if (session_id() == "") session_start(); /* Checks for active session and if not, one is started or resumed. */
-  $_SESSION['current_page'] = 'edit.php'; /* Set the page to return to if login link is clicked */
-
   include 'functions.php';
+  manage_session(array('current_page' => 'edit', 'current_id' => $_REQUEST['movie_id']));
 
   // Connecting to & selecting database
   $link = db_connect();
 
-  if ($_SESSION['authorized']) { /* Check if user is authorized */
+  if ($_SESSION['authorised']) { /* Check if user is authorised */
 
     $step = empty($_REQUEST["write"]) ? 0 : $_REQUEST["write"];
 
@@ -37,16 +35,16 @@
         echo '<div class="form_block">';
         echo '<h3 class="page_name">Edit Movie</h3>';
         echo '<form name="input" action="edit.php" method="post">';
-        echo '<table><tr><td class="label">Name:</td><td><input type="text" class="plain" name="movie_name" size="75" value="'.$row["movie_name"].'" id="movie_name"></td></tr>';
-        echo '<tr><td class="label">aka:</td><td><input type="text" class="plain" name="movie_aka" size="75" value="'.$row["movie_aka"].'"></td></tr>';
-        echo '<tr><td class="label">Year:</td><td><input type="text" class="plain" name="movie_year" size="10" value="'.$row["movie_year"].'"></td></tr>';
-        echo '<tr><td class="label">Description:</td><td><textarea class="plain" name="movie_description" rows="5" cols="72"500>'.$row["movie_description"].'</textarea></td></tr>';
-        echo '<tr><td class="label">Quote:</td><td><input type="text" class="plain" name="movie_quote" size="75" value="'.$row["movie_quote"].'"></td></tr>';
-        echo '<tr><td class="label">IMDb:</td><td><input type="text" class="plain" name="movie_imdb" size="75" value="'.$row["movie_imdb"].'"></td></tr>';
-        echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" name="movie_wikipedia" size="75" value="'.$row["movie_wikipedia"].'"></td></tr>';
-        echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" name="movie_poster_image" size="75" id="movie_poster_image" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="refresh_16.png" title="Load poster images" /></td></tr>';
-        echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" name="movie_attendees" size="75" value="'.$row["movie_attendees"].'"></td></tr>';
-        echo '<tr><td class="label">Event:</td><td><input type="text" class="plain" name="movie_event" size="75" value="'.$row["movie_event"].'"></td></tr>';
+        echo '<table><tr><td class="label">Name:</td><td><input type="text" class="plain" id="movie_name" name="movie_name" size="75" value="'.$row["movie_name"].'"></td></tr>';
+        echo '<tr><td class="label">aka:</td><td><input type="text" class="plain" id="movie_aka" name="movie_aka" size="75" value="'.$row["movie_aka"].'"></td></tr>';
+        echo '<tr><td class="label">Year:</td><td><input type="text" class="plain" id="movie_year" name="movie_year" size="10" value="'.$row["movie_year"].'"></td></tr>';
+        echo '<tr><td class="label">Description:</td><td><textarea class="plain" id="movie_description" name="movie_description" rows="5" cols="72">'.$row["movie_description"].'</textarea></td></tr>';
+        echo '<tr><td class="label">Quote:</td><td><input type="text" class="plain" id="movie_quote" name="movie_quote" size="75" value="'.$row["movie_quote"].'"></td></tr>';
+        echo '<tr><td class="label">IMDb:</td><td><input type="text" class="plain" id="movie_imdb" name="movie_imdb" size="75" value="'.$row["movie_imdb"].'"></td></tr>';
+        echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" id="movie_wikipedia" name="movie_wikipedia" size="75" value="'.$row["movie_wikipedia"].'"></td></tr>';
+        echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" id="movie_poster_image" name="movie_poster_image" size="75" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="refresh_16.png" title="Load poster images" /></td></tr>';
+        echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" id="movie_attendees" name="movie_attendees" size="75" value="'.$row["movie_attendees"].'"></td></tr>';
+        echo '<tr><td class="label">Event:</td><td><input type="text" class="plain" id="movie_event" name="movie_event" size="75" value="'.$row["movie_event"].'"></td></tr>';
         echo '<tr><td class="label">Date watched:</td>';
         echo '<td><select name="day">';
           for ($i = 1; $i <= 31; $i++) {
@@ -188,7 +186,7 @@
       break;
     }
   }
-  else { /* User is not authorized so direct them to login.php */
+  else { /* User is not authorised so direct them to login.php */
     if (isset($_REQUEST['movie_id'])) {
       header('Location: login.php?movie_id='.$_REQUEST['movie_id']); /* Send movie_id to login.php so we can return to editing the movie after auth */
     }

@@ -61,4 +61,22 @@
 
     return mysqli_real_escape_string($connection, $value);
   }
+
+  function manage_session($session_items = NULL) {
+    // Start session
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+    // Update session items
+    foreach($session_items as $k => $v){
+      if(is_null($v)){
+        if(isset($_SESSION[$k])){
+          unset($_SESSION[$k]);
+        }
+      }
+      else{
+        $_SESSION[$k] = $v;
+      }
+    }
+  }
 ?>
