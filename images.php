@@ -1,9 +1,9 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
+  //error_reporting(E_ALL);
+  //ini_set('display_errors', 1);
 
   if(!empty($_REQUEST['name'])){
-    set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/local/lib/php/google-api-php-client/src');
+    set_include_path(get_include_path() . PATH_SEPARATOR . '../lib/google-api-php-client/src');
 
     require_once 'Google/autoload.php';
     require_once 'Google/Client.php';
