@@ -58,7 +58,6 @@
     echo '</div>'; // end movie_block
   }
 
-  mysqli_free_result($result); /* Free result set */
   mysqli_close($link);  /* Closing connection */
   include 'footer.inc.php'; /* Include footer.inc.php */
 ?>

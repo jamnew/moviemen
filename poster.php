@@ -37,7 +37,6 @@
     readfile($poster_path);
   }
 
-  mysqli_free_result($result); /* Free result set */
   mysqli_close($link); /* Closing connection */
 
   /* TODO */

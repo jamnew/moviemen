@@ -9,9 +9,12 @@
 
   if ($_SESSION['authorized']) { /* Check if user is authorized */
 
-    switch ($_REQUEST["write"]) {
+    $step = empty($_REQUEST["write"]) ? 0 : $_REQUEST["write"];
+
+    switch ($step) {
 
     case 0: /* When user clicks edit movie from index.php this case will occur */
+
       include 'header.inc.php'; /* Include header.inc.php */
 
       // Clean up user input
@@ -90,7 +93,6 @@
         echo '</div>';
       }
 
-      mysqli_free_result($result); /* Free result set */
       mysqli_close($link);  /* Closing connection */
       include 'footer.inc.php'; /* Include footer.inc.php */
 
@@ -181,7 +183,6 @@
         db_query("UPDATE `movies` SET `movie_poster_image` = NULL WHERE `movie_id` = $movie_id");
       }
 
-      mysqli_free_result($result); /* Free result set */
       mysqli_close($link); /* Closing connection */
       header("Location: index.php#$movie_id"); /* Redirect browser */
       break;
