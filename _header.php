@@ -3,6 +3,13 @@
   <title>Movie Men (MMVII)</title>
   <link href="screen.css" media="screen" rel="stylesheet" title="Default" type="text/css">
   <link href="handheld.css" media="handheld" rel="stylesheet" title="Handheld" type="text/css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2017100701">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2017100701">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2017100701">
+  <link rel="manifest" href="/manifest.json?v=2017100701">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=2017100701" color="#378dce">
+  <link rel="shortcut icon" href="/favicon.ico?v=2017100701">
+  <meta name="theme-color" content="#378dce">
   <script src="https://moviemen.co/jquery-3.1.0.min.js" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -147,10 +154,10 @@
   echo '<table width=800><tr>';
   foreach($movies as $movie){
     if(empty($movie['movie_aka'])){
-      echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"].' ('.$movie["movie_year"].')" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
+      echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" height="75" title="'.$movie["movie_name"].' ('.$movie["movie_year"].')" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
     }
     else{
-      echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" title="'.$movie["movie_name"].' ('.$movie["movie_year"].') aka '.$movie['movie_aka'].'" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
+      echo '<td align=center><img src="poster.php?movie_id='.$movie["movie_id"].'&thumbnail" height="75" title="'.$movie["movie_name"].' ('.$movie["movie_year"].') aka '.$movie['movie_aka'].'" onclick="lightbox_toggle(\'poster.php?movie_id='.$movie["movie_id"].'\')"></td>';
     }
   }
   echo '</tr></table>';

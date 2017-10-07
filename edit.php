@@ -42,7 +42,7 @@
         echo '<tr><td class="label">Quote:</td><td><input type="text" class="plain" id="movie_quote" name="movie_quote" size="75" value="'.$row["movie_quote"].'"></td></tr>';
         echo '<tr><td class="label">IMDb:</td><td><input type="text" class="plain" id="movie_imdb" name="movie_imdb" size="75" value="'.$row["movie_imdb"].'"></td></tr>';
         echo '<tr><td class="label">Wikipedia:</td><td><input type="text" class="plain" id="movie_wikipedia" name="movie_wikipedia" size="75" value="'.$row["movie_wikipedia"].'"></td></tr>';
-        echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" id="movie_poster_image" name="movie_poster_image" size="75" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="refresh_16.png" title="Load poster images" /></td></tr>';
+        echo '<tr><td class="label">Poster image:</td><td><input type="text" class="plain" id="movie_poster_image" name="movie_poster_image" size="75" value="'.$row["movie_poster_image"].'"></td><td><img id="refresh" src="assets/images/refresh_icon_256x256.png" height="16" width="16" title="Load poster images" /></td></tr>';
         echo '<tr><td class="label">Special guests:</td><td><input type="text" class="plain" id="movie_attendees" name="movie_attendees" size="75" value="'.$row["movie_attendees"].'"></td></tr>';
         echo '<tr><td class="label">Event:</td><td><input type="text" class="plain" id="movie_event" name="movie_event" size="75" value="'.$row["movie_event"].'"></td></tr>';
         echo '<tr><td class="label">Date watched:</td>';
