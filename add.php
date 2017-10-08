@@ -164,7 +164,7 @@
         exec("convert $temp_path $image_path");
 
         // Convert and resize poster thumbnail
-        exec("convert $temp_path -resize x75 $thumbnail_path");
+        exec("convert $temp_path -resize x300 $thumbnail_path");
 
         // Set permissions on poster image and thumbnail
         chmod($image_path, 0664);
