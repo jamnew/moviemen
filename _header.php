@@ -121,13 +121,14 @@
     $random_movie_index = mt_rand(1, count($result)) - 1;
     $movie_id = $result[$random_movie_index]['movie_id'];
 
-    $thumbnail_file = sprintf('%s.%s', ($movie_id), $config['posters_image_format']);
-    $thumbnail_path = sprintf('%s/%s', $config['posters_path'], $thumbnail_file);
+    $poster_thumbnail_file = sprintf('thum_%s.%s', ($movie_id), $config['posters_image_format']);
+    $poster_thumbnail_path = sprintf('%s/%s', $config['posters_path'], $poster_thumbnail_file);
 
-    if(file_exists($thumbnail_path)){
-      $movies[] = $result[$random_movie_index];
-      array_splice($result, $random_movie_index, 1); // Remove the element at random index to prevent duplicates
-    }
+    // Select movie poster
+    $movies[] = $result[$random_movie_index];
+
+    // Remove the element at random index to prevent duplicates
+    array_splice($result, $random_movie_index, 1);
   }
 
   // Randomly choose a movie quote from thumbnail set

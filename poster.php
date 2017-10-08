@@ -1,6 +1,20 @@
 <?php
   include 'functions.php';
 
+  // Parse config file
+  $config = parse_ini_file('../config.ini');
+
+  // Set content type
+  $content_type = sprintf("image/%s", $config['posters_image_format']);
+
+  // Determine whether display or thumbnail request
+  if(isset($_REQUEST['thumbnail'])){
+    $type = "thum";
+  }
+  else{
+    $type = "disp";
+  }
+
   // Connecting to & selecting database
   $link = db_connect();
 
@@ -11,35 +25,30 @@
   $query = "SELECT * from `movies` WHERE `movie_id` = $movie_id";
   $result = db_select($query);
 
+  // Close connection
+  mysqli_close($link);
+
   // Read poster image file
   if($result !== false) {
     $row = $result[0];
 
-    // Parse config file
-    $config = parse_ini_file('../config.ini');
-
-    // Determine whether image or thumbnail
-    if(isset($_REQUEST['thumbnail'])){
-      $file = sprintf('%s.%s', $row['movie_id'], $config['posters_image_format']);
-    }
-    else{
-      $file = sprintf('b%s.%s', $row['movie_id'], $config['posters_image_format']);
-    }
-
-    // Set content type
-    $content_type = sprintf("image/%s", $config['posters_image_format']);
+    // Determine poster image path
+    $file = sprintf('%s_%s.%s', $type, $row['movie_id'], $config['posters_image_format']);
 
     // Set path for poster image file
     $poster_path = sprintf('%s/%s', $config['posters_path'], $file);
 
-    // Load poster image file
-    header("Content-Type: $content_type");
-    readfile($poster_path);
+    // Use placeholder if poster doesn't exist
+    if(!file_exists($poster_path)){
+      $poster_path = sprintf('assets/images/%s_default.%s', $type, $config['posters_image_format']);
+    }
+  }
+  else{
+    // Use placeholder if no movie found via requested id
+    $poster_path = sprintf('assets/images/%s_default.%s', $type, $config['posters_image_format']);
   }
 
-  mysqli_close($link); /* Closing connection */
-
-  /* TODO */
-  // Create a dummy poster and thumbnail, store in ROOT/assets/images
-  // Use dummy poster when real poster does not exist or param not passed
+  // Load poster image file
+  header("Content-Type: $content_type");
+  readfile($poster_path);
 ?>

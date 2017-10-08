@@ -152,23 +152,40 @@
         // Retrieve poster image
         file_put_contents($temp_path, file_get_contents($movie_poster_image));
 
-        // Set path for poster image
-        $image_file = sprintf('b%s.%s', $movie_id, $config['posters_image_format']);
-        $image_path = sprintf('%s/%s', $config['posters_path'], $image_file);
+        // Set path for poster original image (new)
+        $poster_original_file = sprintf('orig_%s.%s', $movie_id, $config['posters_image_format']);
+        $poster_original_path = sprintf('%s/%s', $config['posters_path'], $poster_original_file);
 
-        // Set path for poster thumbnail
-        $thumbnail_file = sprintf('%s.%s', $movie_id, $config['posters_image_format']);
-        $thumbnail_path = sprintf('%s/%s', $config['posters_path'], $thumbnail_file);
+        // Set path for poster display image (ex bxxx.jpg)
+        $poster_display_file = sprintf('disp_%s.%s', $movie_id, $config['posters_image_format']);
+        $poster_display_path = sprintf('%s/%s', $config['posters_path'], $poster_display_file);
 
-        // Convert poster image
-        exec("convert $temp_path $image_path");
+        // Set path for poster thumbnail (ex xxx.jpg)
+        $poster_thumbnail_file = sprintf('thum_%s.%s', $movie_id, $config['posters_image_format']);
+        $poster_thumbnail_path = sprintf('%s/%s', $config['posters_path'], $poster_thumbnail_file);
 
-        // Convert and resize poster thumbnail
-        exec("convert $temp_path -resize x300 $thumbnail_path");
+        // Get height of poster image
+        $height = exec("identify $temp_path |cut -d' ' -f3 |cut -d'x' -f2");
+
+        // Convert and resize poster images
+        exec("convert $temp_path $poster_original_path");
+        if($height > 800){
+          exec("convert $temp_path -resize x800 $poster_display_path");
+        }
+        else{
+          exec("cp $temp_path $poster_display_path");
+        }
+        if($height > 300){
+          exec("convert $temp_path -resize x300 $poster_thumbnail_path");
+        }
+        else{
+          exec("cp $temp_path $poster_thumbnail_path");
+        }
 
         // Set permissions on poster image and thumbnail
-        chmod($image_path, 0664);
-        chmod($thumbnail_path, 0664);
+        chmod($poster_original_path, 0664);
+        chmod($poster_display_path, 0664);
+        chmod($poster_thumbnail_path, 0664);
 
         // Remove stored poster image URL
         db_query("UPDATE `movies` SET `movie_poster_image` = NULL WHERE `movie_id` = $movie_id");
