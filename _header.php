@@ -10,7 +10,7 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=2017100701" color="#378dce">
   <link rel="shortcut icon" href="/favicon.ico?v=2017100701">
   <meta name="theme-color" content="#378dce">
-  <script src="https://moviemen.co/jquery-3.1.0.min.js" type="text/javascript"></script>
+  <script src="https://moviemen.xyz/jquery-3.1.0.min.js" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $("#movie_name").change(function(){

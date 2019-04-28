@@ -41,10 +41,10 @@ class RSS
 <rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>
   <channel>
     <title>Movie Men</title>
-    <link>http://moviemen.co/</link>
+    <link>http://moviemen.xyz/</link>
     <description>$count movies and counting...</description>
     <language>en-us</language>
-    <atom:link href='http://moviemen.co/feed/' rel='self' type='application/rss+xml' />
+    <atom:link href='http://moviemen.xyz/feed/' rel='self' type='application/rss+xml' />
   ";
 
     return $details;
@@ -81,10 +81,10 @@ class RSS
 
       $items .= "  <item>
       <title>$title</title>
-      <link>http://moviemen.co/index#$id</link>
+      <link>http://moviemen.xyz/index#$id</link>
       <pubDate>$date_watched</pubDate>
       <description><![CDATA[$description]]></description>
-      <guid>http://moviemen.co/index#$id</guid>
+      <guid>http://moviemen.xyz/index#$id</guid>
     </item>
   ";
     }
