@@ -4,6 +4,7 @@
 
 	// Connecting to & selecting database
 	$link = db_connect();
+	$config = app_config();
 
 	$step = empty($_REQUEST["action"]) ? 0 : $_REQUEST["action"];
 
@@ -16,10 +17,13 @@
 			// Login form
 			echo '<div class="form_block">';
 			echo '<h3 class="page_name">Login</h3>';
+			if($config['read_only_mode']) {
+				echo '<p class="warning">Login is disabled in read only mode</p>';
+			}
 			echo '<form name="input" action="login.php" method="post">';
-			echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"></td></tr>';
-			echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"></td></tr>';
-			echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
+			echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"'.($config['read_only_mode'] ? ' disabled' : '').'></td></tr>';
+			echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"'.($config['read_only_mode'] ? ' disabled' : '').'></td></tr>';
+			echo '<tr><td class="label"></td><td><input type="submit" value="Submit"'.($config['read_only_mode'] ? ' disabled' : '').'>';
 			echo '<input type="hidden" name="action" value="1">';
 			echo '</td></tr></table></form>';
 			echo '</div>';
@@ -29,6 +33,17 @@
 			break;
 
 		case 1: /* When user sumbits credentials to be authenticated this case occurs */
+			if($config['read_only_mode']) {
+				include '_header.php'; /* Include _header.php */
+
+				echo '<div class="form_block">';
+				echo '<h3 class="page_name">Login</h3>';
+				echo '<p class="warning">Login is disabled in read only mode</p>';
+				echo '</div>';
+
+				include '_footer.php'; /* Include _footer.php */
+				break;
+			}
 
 			$user = mysqli_real_escape_string($link, $_POST["user"]); /* Escape special chars in user input */
 			$pass = md5($_POST["pass"]); /* Hash password supplied by user */
@@ -59,9 +74,9 @@
 				echo '<h3 class="page_name">Login</h3>';
 				echo '<p class="warning">Username or password was incorrect.</p>'; /* Message advising user that credentials supplied incorrect */
 				echo '<form name="input" action="login.php" method="post">';
-				echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"></td></tr>';
-				echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"></td></tr>';
-				echo '<tr><td class="label"></td><td><input type="submit" value="Submit">';
+				echo '<table><tr><td class="label">Username:</td><td><input type="text" name="user" size="32"'.($config['read_only_mode'] ? ' disabled' : '').'></td></tr>';
+				echo '<tr><td class="label">Password:</td><td><input type="password" name="pass" size="32"'.($config['read_only_mode'] ? ' disabled' : '').'></td></tr>';
+				echo '<tr><td class="label"></td><td><input type="submit" value="Submit"'.($config['read_only_mode'] ? ' disabled' : '').'>';
 				echo '<input type="hidden" name="action" value="1">';
 				if (isset($_REQUEST['movie_id'])) { /* Pass movie_id along */
 					echo '<input type="hidden" name="movie_id" value="'.$_REQUEST['movie_id'].'">';

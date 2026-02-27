@@ -5,7 +5,7 @@
   // Connecting to & selecting database
   $link = db_connect();
 
-  if ($_SESSION['authorised']) { /* Check if user is authorised */
+  if (!empty($_SESSION['authorised'])) { /* Check if user is authorised */
 
     $step = empty($_REQUEST["write"]) ? 0 : $_REQUEST["write"];
 
@@ -139,8 +139,7 @@
 
       // Retrieve poster image file if required
       if(!empty($movie_poster_image)){
-        // Parse config file
-        $config = parse_ini_file('../config.ini');
+        $config = app_config();
 
         /* TODO */
         // Check path is configured and use default if not

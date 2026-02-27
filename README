@@ -1,1 +1,54 @@
-Movie Men records movies we watch
+Movie Men records movies we watch.
+
+Docker setup includes:
+- `nginx` (port `8080`)
+- `php-fpm` (runs the PHP app)
+- `mariadb` (database)
+- webroot at `public/`
+
+## Run with Docker
+
+1. Copy env file:
+   `cp .env.example .env`
+2. Start containers:
+   `docker compose up --build -d`
+3. Open:
+   `http://localhost:8080`
+
+## Database initialization
+
+If you have schema/data SQL, put it in:
+`docker/mariadb/init/`
+
+MariaDB will execute any `*.sql` file in that folder when the DB volume is first created.
+
+If you need to re-run init scripts from scratch:
+`docker compose down -v && docker compose up --build -d`
+
+## App DB config
+
+In Docker, the app reads:
+- `DB_HOST`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+
+## Poster files from old server
+
+Copy your old poster image files into:
+`storage/posters/`
+
+Expected naming pattern is:
+- `orig_<movie_id>.jpg`
+- `disp_<movie_id>.jpg`
+- `thum_<movie_id>.jpg`
+
+(`.jpg` can be changed with `POSTERS_IMAGE_FORMAT` in `.env`.)
+
+Temporary download files are written to:
+`storage/tmp/`
+
+## Read-only mode
+
+`READ_ONLY_MODE=1` (default) disables login.
+Set `READ_ONLY_MODE=0` to enable login.

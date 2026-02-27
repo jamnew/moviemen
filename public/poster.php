@@ -1,8 +1,7 @@
 <?php
   include 'functions.php';
 
-  // Parse config file
-  $config = parse_ini_file('../config.ini');
+  $config = app_config();
 
   // Set content type
   $content_type = sprintf("image/%s", $config['posters_image_format']);

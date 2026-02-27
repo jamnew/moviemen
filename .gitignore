@@ -14,7 +14,7 @@
 *.o
 *.so
 
-# Packages 
+# Packages
 *.7z
 *.dmg
 *.gz
@@ -26,6 +26,9 @@
 
 # Logs
 *.log
+.env
+storage/tmp/*
+!storage/tmp/.gitkeep
 
 # OS generated files
 .DS_Store

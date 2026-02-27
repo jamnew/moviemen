@@ -10,7 +10,7 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=2017100701" color="#378dce">
   <link rel="shortcut icon" href="/favicon.ico?v=2017100701">
   <meta name="theme-color" content="#378dce">
-  <script src="https://moviemen.xyz/jquery-3.1.0.min.js" type="text/javascript"></script>
+  <script src="/jquery-3.1.0.min.js" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $("#movie_name").change(function(){
@@ -84,7 +84,7 @@
 <?php
   echo '<div class="mm_login">';
 
-  if ($_SESSION['authorised'] == true) { /* Check if user has been recently authorised */
+  if (!empty($_SESSION['authorised'])) { /* Check if user has been recently authorised */
     echo 'Logged in as '.$_SESSION['user'];
     echo ' | <a href="feed/" class="menu"><b>Feed</b></a>';
     echo '| <a href="add.php" class="menu"><b>Add Movie</b></a>';
@@ -101,9 +101,6 @@
 <!--Title block-->
 <div id="mm_title">
 <?php
-  // Parse config file
-  $config = parse_ini_file('../config.ini');
-
   // Select all movies
   $query = "SELECT * from `movies`";
   $result = db_select($query);
@@ -120,9 +117,6 @@
   while(count($movies) < 14){
     $random_movie_index = mt_rand(1, count($result)) - 1;
     $movie_id = $result[$random_movie_index]['movie_id'];
-
-    $poster_thumbnail_file = sprintf('thum_%s.%s', ($movie_id), $config['posters_image_format']);
-    $poster_thumbnail_path = sprintf('%s/%s', $config['posters_path'], $poster_thumbnail_file);
 
     // Select movie poster
     $movies[] = $result[$random_movie_index];

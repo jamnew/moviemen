@@ -2,15 +2,12 @@
 
 class RSS
 {
-  public function RSS()
+  public function __construct()
   {
-    // Load configuration as an array. Use the actual location of your configuration file
-    $config = parse_ini_file('../../config.ini');
-
-    DEFINE('DB_USER', $config['username']);
-    DEFINE('DB_PASSWORD', $config['password']);
-    DEFINE('DB_HOST', 'localhost');
-    DEFINE('DB_NAME', $config['dbname']);
+    DEFINE('DB_USER', getenv('DB_USER'));
+    DEFINE('DB_PASSWORD', getenv('DB_PASSWORD'));
+    DEFINE('DB_HOST', getenv('DB_HOST'));
+    DEFINE('DB_NAME', getenv('DB_NAME'));
   }
 
   public function GetFeed()
@@ -32,7 +29,7 @@ class RSS
   {
     $detailsTable = "movies";
     $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
-    mysqli_select_db($link, 'mm') or die('Could not select database');
+    mysqli_select_db($link, DB_NAME) or die('Could not select database');
     $query = "SELECT * FROM $detailsTable";
     $result = mysqli_query($link, $query);
     $count = mysqli_num_rows($result);
@@ -54,7 +51,7 @@ class RSS
   {
     $itemsTable = "movies";
     $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
-    mysqli_select_db($link, 'mm') or die('Could not select database');
+    mysqli_select_db($link, DB_NAME) or die('Could not select database');
     $query = "SELECT * FROM  $itemsTable ORDER BY movie_date_watched DESC LIMIT 10";
     $result = mysqli_query($link, $query);
     $items = '';
