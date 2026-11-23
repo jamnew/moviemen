@@ -1,6 +1,7 @@
 services:
   nginx:
-    image: nginx:1.27-alpine
+    restart: unless-stopped
+    image: nginx:1.30.7-alpine
     # no ports: section means it's not accessible from host but still accessible on http://moviemen:80
     # used to have 8080:80 here
     volumes:
@@ -15,6 +16,7 @@ services:
           - moviemen # this is the internal hostname for Docker
 
   php:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/php/Dockerfile
